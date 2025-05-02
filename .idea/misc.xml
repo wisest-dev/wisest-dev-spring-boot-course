@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/a01-get-started-with-spring-boot/pom.xml" />
+        <option value="$PROJECT_DIR$/a02-serve-web-content/pom.xml" />
+        <option value="$PROJECT_DIR$/a03-validate-form-input/pom.xml" />
+        <option value="$PROJECT_DIR$/a04-connect-to-database-using-jpa/pom.xml" />
+        <option value="$PROJECT_DIR$/a05-expose-rest-service/pom.xml" />
+        <option value="$PROJECT_DIR$/a06-consume-restful-web-service/pom.xml" />
+        <option value="$PROJECT_DIR$/a07-cover-code-with-tests/pom.xml" />
+        <option value="$PROJECT_DIR$/a09-package-the-application/pom.xml" />
+        <option value="$PROJECT_DIR$/a08-secure-the-application/pom.xml" />
+        <option value="$PROJECT_DIR$/a10-use-shared-library/pom.xml" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="graalvm-21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>

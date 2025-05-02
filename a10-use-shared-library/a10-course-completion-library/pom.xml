@@ -61,11 +61,6 @@
             </plugin>
 
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
@@ -102,7 +97,7 @@
                     <licenseResolver>${project.baseUri}src/license</licenseResolver>
                     <organizationName>Juhan Aasaru and Wisest.dev</organizationName>
                     <inceptionYear>2025</inceptionYear>
-                    <projectName>Code accompanying video course "Learn Spring Boot by Examining 10+ Practical
+                    <projectName>Code accompanying course "Learn Spring Boot by Examining 10+ Practical
                         Applications"
                     </projectName>
                 </configuration>

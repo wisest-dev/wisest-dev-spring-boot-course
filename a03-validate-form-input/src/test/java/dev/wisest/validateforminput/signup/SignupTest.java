@@ -2,25 +2,25 @@ package dev.wisest.validateforminput.signup;
 
 /*-
  * #%L
- * Code accompanying video course "Learn Spring Boot by Examining 10+ Practical Applications"
+ * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
  * The source code (including test code) in this repository is licensed under a
- * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Licence.
- * 
- * Attribution-NonCommercial-NoDerivatives 4.0 International Licence is a standard
- * form licence agreement that does not permit any commercial use or derivatives
- * of the original work. Under this licence: you may only distribute a verbatim
+ * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+ * %
+ * Attribution-NonCommercial-NoDerivatives 4.0 International License is a standard
+ * form license agreement that does not permit any commercial use or derivatives
+ * of the original work. Under this license: you may only distribute a verbatim
  * copy of the work. If you remix, transform, or build upon the work in any way then
  * you are not allowed to publish nor distribute modified material.
- * You must give appropriate credit and provide a link to the licence.
- * 
- * The full licence terms are available from
+ * You must give appropriate credit and provide a link to the license.
+ * %
+ * The full license terms are available from
  * <http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode>
- * 
+ * %
  * All the code (including tests) contained herein should be attributed as:
- * © Juhan Aasaru https://Wisest.dev
+ * (Copyright) Juhan Aasaru https://Wisest.dev
  * #L%
  */
 
@@ -52,7 +52,7 @@ public class SignupTest {
 
 		MockHttpServletRequestBuilder validSignup = post("/signup")
 				.param("username", "JohnSmith777")
-				.param("springBootExpertise", "200")
+				.param("springBootExpertise", "77")
 				.param("dateOfBirth", "1999-12-13");
 
 		mockMvc.perform(validSignup)
@@ -65,7 +65,7 @@ public class SignupTest {
 
 		mockMvc.perform(newsletterSignupPage)
 				.andExpect(content().string(containsStringIgnoringCase("Username:")))
-				.andExpect(content().string(containsStringIgnoringCase("Ready to pay per course ($):")))
+				.andExpect(content().string(containsStringIgnoringCase("Assess your level of expertise with Spring Boot")))
 				.andExpect(content().string(containsStringIgnoringCase("Date of birth:")));
 	}
 
@@ -82,7 +82,7 @@ public class SignupTest {
 	public void submitSignup_birthDateInTheFuture_hasError() throws Exception {
 		MockHttpServletRequestBuilder invalidSignup = post("/signup")
 				.param("username", "JohnSmith777")
-				.param("springBootExpertise", "200")
+				.param("springBootExpertise", "77")
 				.param("dateOfBirth", "2055-12-13");
 
 		mockMvc.perform(invalidSignup)
@@ -95,7 +95,7 @@ public class SignupTest {
 	public void submitSignup_birthDateInWrongFormat_hasError() throws Exception {
 		MockHttpServletRequestBuilder invalidSignup = post("/signup")
 				.param("username", "JohnSmith777")
-				.param("springBootExpertise", "200")
+				.param("springBootExpertise", "77")
 				.param("dateOfBirth", "12/12/1997");
 
 		mockMvc.perform(invalidSignup)
@@ -108,26 +108,27 @@ public class SignupTest {
 	public void submitSignup_birthDateBeforeYear1900_customError() throws Exception {
 		MockHttpServletRequestBuilder invalidSignup = post("/signup")
 				.param("username", "JohnSmith777")
-				.param("springBootExpertise", "200")
+				.param("springBootExpertise", "77")
 				.param("dateOfBirth", "1899-12-13");
 
 		mockMvc.perform(invalidSignup)
 				.andExpect(model().hasErrors())
 				.andExpect(model().errorCount(1))
-				.andExpect(content().string(containsStringIgnoringCase("You can not be that old! The earliest accepted birthdate is 1900-01-01")));
+				.andExpect(content().string(containsStringIgnoringCase("It is not possible that you are")))
+				.andExpect(content().string(containsStringIgnoringCase("The earliest accepted birthdate is 1900-01-01.")));
 	}
 
 	@Test
 	public void submitSignup_tooManyDigits_failure() throws Exception {
 		MockHttpServletRequestBuilder invalidSignup = post("/signup")
 				.param("username", "JohnSmith777")
-				.param("springBootExpertise", "1234.123")
+				.param("springBootExpertise", "34.123")
 				.param("dateOfBirth", "1955-12-13");
 
 		mockMvc.perform(invalidSignup)
 			.andExpect(model().hasErrors())
 			.andExpect(model().errorCount(1))
-			.andExpect(content().string(containsStringIgnoringCase("numeric value out of bounds")));
+			.andExpect(content().string(containsStringIgnoringCase("Please enter level of detail up to 3 digits before and 2 after the decimal point")));
 	}
 
 	@Test
@@ -158,94 +159,5 @@ public class SignupTest {
 		mockMvc.perform(newsletterOrder)
 			.andExpect(model().hasErrors());
 	}
-
-
-
-
-
-
-	@Test
-	public void formWithRequiredFieldsIsDisplayed() throws Exception { // AC01
-		MockHttpServletRequestBuilder newsletterSignupPage = get("/newsletter");
-
-		mockMvc.perform(newsletterSignupPage)
-				.andExpect(content().string(containsStringIgnoringCase("Name")))
-				.andExpect(content().string(containsStringIgnoringCase("Age")))
-				.andExpect(content().string(containsStringIgnoringCase("Email")));
-	}
-
-	@Test
-	public void checkNewsletterForm_noEmailSubmitted_hasError() throws Exception {
-		MockHttpServletRequestBuilder newsletterOrder = post("/newsletter")
-				.param("name", "John Smith")
-				.param("age", "54");
-
-		mockMvc.perform(newsletterOrder)
-				.andExpect(model().hasErrors());
-	}
-
-	@Test
-	public void checkNewsletterForm_incorrectEmailSubmitted_hasError() throws Exception {
-		MockHttpServletRequestBuilder invalidOrder = post("/newsletter")
-				.param("name", "John Smith")
-				.param("age", "54")
-				.param("email", "London 1");
-
-		mockMvc.perform(invalidOrder)
-				.andExpect(model().hasErrors());
-	}
-
-	@Test
-	public void checkNewsletterForm_nameMissingName_failure() throws Exception {
-		MockHttpServletRequestBuilder newsletterOrder = post("/newsletter")
-				.param("email", "test@example.org")
-				.param("age", "100");
-
-		mockMvc.perform(newsletterOrder)
-				.andExpect(model().hasErrors());
-	}
-
-	/*
-	@Test
-	public void checkPersonInfoWhenNameTooShortThenFailure() throws Exception {
-		MockHttpServletRequestBuilder newsletterOrder = post("/newsletter")
-				.param("name", "R")
-				.param("age", "20");
-
-		mockMvc.perform(newsletterOrder)
-				.andExpect(model().hasErrors());
-	}
-
-	@Test
-	public void checkPersonInfoWhenAgeMissingThenFailure() throws Exception {
-		MockHttpServletRequestBuilder newsletterOrder = post("/newsletter")
-				.param("name", "Rob");
-
-		mockMvc.perform(newsletterOrder)
-				.andExpect(model().hasErrors());
-	}
-
-	@Test
-	public void checkPersonInfoWhenAgeTooYoungThenFailure() throws Exception {
-		MockHttpServletRequestBuilder newsletterOrder = post("/newsletter")
-				.param("age", "1")
-				.param("name", "Rob");
-
-		mockMvc.perform(newsletterOrder)
-				.andExpect(model().hasErrors());
-	}
-
-	@Test
-	public void submitNewsletterOrder_validForm_noErrors() throws Exception {
-
-		MockHttpServletRequestBuilder validNewsletterOrder = post("/newsletter")
-				.param("name", "John Smith")
-				.param("age", "54")
-				.param("email", "London 1");
-
-		mockMvc.perform(validNewsletterOrder)
-				.andExpect(model().hasNoErrors());
-	}
-	*/
 
 }

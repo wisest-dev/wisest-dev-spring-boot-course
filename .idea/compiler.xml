@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="a05-expose-rest-service" />
+        <module name="a10-coding-school" />
+        <module name="a01-get-started-with-spring-boot" />
+        <module name="a04-connect-to-database-using-jpa" />
+        <module name="a10-course-completion-library" />
+        <module name="a08-secure-the-application" />
+        <module name="a07-cover-code-with-tests" />
+        <module name="a09-package-the-application" />
+        <module name="a06-consume-restful-web-service" />
+        <module name="a02-serve-web-content" />
+        <module name="a03-validate-form-input" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="a01-get-started-with-spring-boot" options="-parameters" />
+      <module name="a02-serve-web-content" options="-parameters" />
+      <module name="a03-validate-form-input" options="-parameters" />
+      <module name="a04-connect-to-database-using-jpa" options="-parameters" />
+      <module name="a05-expose-rest-service" options="-parameters" />
+      <module name="a06-consume-restful-web-service" options="-parameters" />
+      <module name="a07-cover-code-with-tests" options="-parameters" />
+      <module name="a08-secure-the-application" options="-parameters" />
+      <module name="a09-package-the-application" options="-parameters" />
+      <module name="a10-coding-school" options="-parameters" />
+      <module name="a10-course-completion-library" options="-parameters" />
+    </option>
+  </component>
+</project>

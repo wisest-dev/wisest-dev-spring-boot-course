@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <!--
   #%L
-  Code accompanying video course "Learn Spring Boot by Examining 10+ Practical Applications"
+  Code accompanying course "Learn Spring Boot by Examining 10+ Practical Applications"
   %%
   Copyright (C) 2025 Juhan Aasaru and Wisest.dev
   %%
@@ -31,7 +31,7 @@
         <form action="#" th:action="@{/signup}" th:object="${signupForm}" method="post">
             <table>
                 <tr>
-                    <td><label for="username">Username</label>:</td>
+                    <td><label for="username">Username:</label></td>
                     <td><input type="text" th:field="*{username}" id="username"/></td>
                     <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>
                 </tr>
