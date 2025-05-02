@@ -1,0 +1,10 @@
+certificate-of-completion:
+  pdf-properties:
+    brandName: Super Brand Tests1
+    dateFormat: dd.MM.yyyy
+    titleFont:
+      size: 30
+      face: COURIER_BOLD_OBLIQUE
+    textFont:
+      size: 14
+      face: HELVETICA

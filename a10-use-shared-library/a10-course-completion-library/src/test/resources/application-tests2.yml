@@ -1,0 +1,10 @@
+certificate-of-completion:
+  pdf-properties:
+    brandName: Other Brand Tests2
+    dateFormat: yyyy-MM-dd
+    titleFont:
+      size: 30
+      face: COURIER_BOLD_OBLIQUE
+    textFont:
+      size: 14
+      face: HELVETICA

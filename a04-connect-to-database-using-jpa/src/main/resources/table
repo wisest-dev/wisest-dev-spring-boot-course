@@ -1,0 +1,2 @@
+Hibernate: create table course (topic tinyint check (topic between 0 and 2), author_person_id bigint, course_id varchar(255) not null, title varchar(255), primary key (course_id))
+Hibernate: create table person (person_id bigint not null, name varchar(255), primary key (person_id))

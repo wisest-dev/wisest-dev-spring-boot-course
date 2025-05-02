@@ -1,0 +1,12 @@
+server:
+  port: 8010
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/wisest
+    username: course_system_app
+    password: course_system_app
+  jpa:
+    properties:
+      hibernate:
+        default_schema: course_system

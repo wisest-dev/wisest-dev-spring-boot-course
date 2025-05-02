@@ -1,0 +1,9 @@
+
+
+curl -X POST localhost:8080/enrollments -H 'Content-type:application/json' -d '{"student": {"personId": 2},"course": {"courseId": "BEGINNER_SPRING_BOOT","author": {"personId": 1}},"enrollmentDate": "2025-02-01"}'
+
+curl -X POST localhost:8005/courses/XROAD/enrollments -H 'Content-type:application/json' -d '{  "student": { "personId": 2 },    "course": { "courseId": "XROAD" }, "enrollmentDate": "2025-02-01"  }'
+
+
+
+ {  "student": { "personId": 2 },    "course": { "courseId": "XROAD" }, "enrollmentDate": "2025-02-01"  }

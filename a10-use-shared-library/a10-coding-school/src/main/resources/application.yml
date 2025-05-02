@@ -1,0 +1,14 @@
+server:
+  port: 8009
+
+certificate-of-completion:
+  pdf-properties:
+    brandName: Wisest Dev
+    dateFormat: yyyy-MM-dd
+    titleFont:
+      size: 30
+      face: COURIER_BOLD_OBLIQUE
+    textFont:
+      size: 14
+      face: HELVETICA
+

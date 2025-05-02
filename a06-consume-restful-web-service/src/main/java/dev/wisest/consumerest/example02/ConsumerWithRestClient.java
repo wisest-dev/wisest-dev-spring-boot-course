@@ -1,0 +1,71 @@
+package dev.wisest.consumerest.example02;
+
+/*-
+ * #%L
+ * Code accompanying video course "Learn Spring Boot by Examining 10+ Practical Applications"
+ * %%
+ * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
+ * %%
+ * The source code (including test code) in this repository is licensed under a
+ * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Licence.
+ *
+ * Attribution-NonCommercial-NoDerivatives 4.0 International Licence is a standard
+ * form licence agreement that does not permit any commercial use or derivatives
+ * of the original work. Under this licence: you may only distribute a verbatim
+ * copy of the work. If you remix, transform, or build upon the work in any way then
+ * you are not allowed to publish nor distribute modified material.
+ * You must give appropriate credit and provide a link to the licence.
+ *
+ * The full licence terms are available from
+ * <http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode>
+ *
+ * All the code (including tests) contained herein should be attributed as:
+ * © Juhan Aasaru https://Wisest.dev
+ * #L%
+ */
+
+import dev.wisest.consumerest.model.Course;
+import dev.wisest.consumerest.model.Enrollment;
+import dev.wisest.consumerest.model.Person;
+import dev.wisest.consumerest.repository.restclient.CourseRepositoryWithRestClient;
+import dev.wisest.consumerest.repository.restclient.EnrollmentRepositoryWithRestClient;
+import jakarta.annotation.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.web.client.RestClient;
+
+import java.time.LocalDate;
+
+@Configuration
+@Profile("example02")
+public class ConsumerWithRestClient {
+    Logger log = LoggerFactory.getLogger(ConsumerWithRestClient.class);
+
+
+    @Resource
+    CourseRepositoryWithRestClient courseRepositoryWithRestClient;
+
+
+    @Bean
+    public CommandLineRunner run(RestClient restClient, EnrollmentRepositoryWithRestClient enrollmentRepository, EnrollmentRepositoryWithRestClient enrollmentRepositoryWithRestClient) throws Exception {
+        return args -> {
+            Course course = courseRepositoryWithRestClient.getCourse("XROAD");
+
+            Enrollment enrollmentToAdd = new Enrollment(
+                    new Person(1L),
+                    new Course("XROAD"),
+                    LocalDate.of(2025, 1, 13));
+
+            Enrollment addedEnrollment = enrollmentRepositoryWithRestClient.addEnrollment(enrollmentToAdd);
+
+            log.info("created enrollment: {}", addedEnrollment);
+
+            enrollmentRepositoryWithRestClient.deleteEnrollment("XROAD", addedEnrollment.getUuid());
+
+        };
+    }
+}

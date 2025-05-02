@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: example02
+  main:
+    web-application-type: none
+
+enrollmentWebservice:
+  url: http://localhost:8005
