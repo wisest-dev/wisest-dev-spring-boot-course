@@ -41,8 +41,8 @@ public class GetStartedApplication {
 
     @Bean
     public CommandLineRunner beanNamePrinter(ApplicationContext ctx) {
-        System.out.println("The method that returns a bean was called.");
-        return new CommandLineRunner() {
+        System.out.println("The method that returns a CommandLineRunner bean was called.");
+        CommandLineRunner commandLineRunner = new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
                 System.out.println("Let's list the beans provided by Spring Boot:");
@@ -54,6 +54,8 @@ public class GetStartedApplication {
                 }
             }
         };
+        System.out.println("The CommandLineRunner bean has been created");
+        return commandLineRunner;
     }
 
 }
