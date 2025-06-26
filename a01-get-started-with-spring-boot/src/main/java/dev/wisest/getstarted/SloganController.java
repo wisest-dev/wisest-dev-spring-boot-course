@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SloganController {
 
 	@GetMapping("/")
-	@RequestMapping(method = RequestMethod.GET, path = "/")
 	public Slogan index() {
 		Slogan slogan = new Slogan();
 		slogan.setLanguage("en");
