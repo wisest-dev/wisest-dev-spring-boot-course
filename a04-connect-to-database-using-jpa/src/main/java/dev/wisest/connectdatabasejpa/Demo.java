@@ -51,10 +51,26 @@ public class Demo {
 
 
             // save a few courses
-            courseRepository.save(new Course("BEGINNER_SPRING_BOOT","Java Spring Boot for Beginners", CourseTopic.JAVA, juhan));
-            courseRepository.save(new Course("XROAD", "Consume and offer services via X-Road", CourseTopic.XROAD, juhan));
-            courseRepository.save(new Course("JUNIOR_MORE_INTERVIEWS", "How to Land More Junior Software Engineer Job Interviews", CourseTopic.APPLYING_TO_JOB, juhan));
-            courseRepository.save(new Course("SUCCEED_AS_SOFTWARE_ENGINEER", "Level Up Your Skills to Succeed in a Software Engineer Role", CourseTopic.APPLYING_TO_JOB, john));
+            courseRepository.save(
+                    new Course("BEGINNER_SPRING_BOOT",
+                            "Java Spring Boot for Beginners",
+                            CourseTopic.JAVA,
+                            juhan));
+            courseRepository.save(
+                    new Course("XROAD",
+                            "Consume and offer services via X-Road",
+                            CourseTopic.XROAD,
+                            juhan));
+            courseRepository.save(
+                    new Course("JUNIOR_MORE_INTERVIEWS",
+                            "How to Land More Junior Software Engineer Job Interviews",
+                            CourseTopic.APPLYING_TO_JOB,
+                            juhan));
+            courseRepository.save(
+                    new Course("SUCCEED_AS_SOFTWARE_ENGINEER",
+                            "Level Up Your Skills to Succeed in a Software Engineer Role",
+                            CourseTopic.APPLYING_TO_JOB,
+                            john));
 
             // fetch all courses
             log.info("Courses found with findAll():");
@@ -88,16 +104,23 @@ public class Demo {
             }
             log.info("");
 
-            //
             log.info("There are {} courses in the database", courseRepository.count());
 
-            courseRepository.save(new Course("TESTING_005", "Fifth course", CourseTopic.XROAD, juhan));
-            log.info("After adding a course there are {} courses  in the database", courseRepository.count());
+            courseRepository.save(
+                    new Course("TESTING_005",
+                            "Fifth course",
+                            CourseTopic.XROAD,
+                            juhan));
+            log.info("After adding a course there are {} courses  in the database",
+                    courseRepository.count());
 
-            Course fetchedCourse = courseRepository.findByTitleAndTopic("Fifth course", CourseTopic.XROAD);
+            Course fetchedCourse = courseRepository.findByTitleAndTopic(
+                    "Fifth course", CourseTopic.XROAD);
             log.info("Fetched {} from database", fetchedCourse);
             courseRepository.delete(fetchedCourse);
-            log.info("After deleting there are {} courses in the database", courseRepository.count());
+
+            log.info("After deleting there are {} courses in the database",
+                    courseRepository.count());
 
             // fetch persons
             Person p1 = personRepository.findByNameIgnoreCase("juhan AASARU");

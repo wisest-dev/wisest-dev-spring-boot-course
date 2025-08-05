@@ -26,7 +26,9 @@ package dev.wisest.connectdatabasejpa.model;
 
 public enum CourseTopic {
 
-    JAVA("Java"), APPLYING_TO_JOB("Applying to a job"), XROAD("XRoad");
+    JAVA("Java"),
+    APPLYING_TO_JOB("Applying to a job"),
+    XROAD("XRoad");
 
     private final String topicName;
 
