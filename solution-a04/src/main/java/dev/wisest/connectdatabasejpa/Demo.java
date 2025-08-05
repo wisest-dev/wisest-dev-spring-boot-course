@@ -26,8 +26,10 @@ package dev.wisest.connectdatabasejpa;
 
 import dev.wisest.connectdatabasejpa.model.Course;
 import dev.wisest.connectdatabasejpa.model.CourseTopic;
+import dev.wisest.connectdatabasejpa.model.Enrollment;
 import dev.wisest.connectdatabasejpa.model.Person;
 import dev.wisest.connectdatabasejpa.repository.CourseRepository;
+import dev.wisest.connectdatabasejpa.repository.EnrollmentRepository;
 import dev.wisest.connectdatabasejpa.repository.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +37,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -43,106 +46,44 @@ public class Demo {
     private static final Logger log = LoggerFactory.getLogger(Demo.class);
 
     @Bean
-    public CommandLineRunner demoQueries(PersonRepository personRepository, CourseRepository courseRepository) {
+    public CommandLineRunner solutionQueries(PersonRepository personRepository,
+                                             CourseRepository courseRepository,
+                                             EnrollmentRepository enrollmentRepository) {
         return (args) -> {
 
             Person juhan = personRepository.save(new Person("Juhan Aasaru"));
             Person john = personRepository.save(new Person("John Smith"));
 
 
-            // save a few courses
-            courseRepository.save(
-                    new Course("BEGINNER_SPRING_BOOT",
-                            "Java Spring Boot for Beginners",
-                            CourseTopic.JAVA,
-                            juhan));
             courseRepository.save(
                     new Course("XROAD",
                             "Consume and offer services via X-Road",
                             CourseTopic.XROAD,
                             juhan));
-            courseRepository.save(
-                    new Course("JUNIOR_MORE_INTERVIEWS",
-                            "How to Land More Junior Software Engineer Job Interviews",
-                            CourseTopic.APPLYING_TO_JOB,
-                            juhan));
-            courseRepository.save(
-                    new Course("SUCCEED_AS_SOFTWARE_ENGINEER",
-                            "Level Up Your Skills to Succeed in a Software Engineer Role",
-                            CourseTopic.APPLYING_TO_JOB,
-                            john));
-
-            // fetch all courses
-            log.info("Courses found with findAll():");
-            log.info("-------------------------------");
-            for (Course course : courseRepository.findAll()) {
-                log.info(course.toString());
-            }
-            log.info("");
-
-            // fetch an individual course by ID
-            Course course = courseRepository.findByCourseId("BEGINNER_SPRING_BOOT");
-            log.info("Course found with findByCourseId(BEGINNER_SPRING_BOOT):");
-            log.info("--------------------------------");
-            log.info(course.toString());
-            log.info("");
-
-            // fetch courses by topic
-            log.info("Course found with findByTopicNotIn('APPLYING_TO_JOB, XROAD'):");
-            log.info("--------------------------------------------");
-            courseRepository.findByTopicNotIn(List.of(CourseTopic.APPLYING_TO_JOB, CourseTopic.XROAD))
-                    .forEach(applyingCourse -> {
-                        log.info(applyingCourse.toString());
-                    });
-            log.info("");
-
-            // fetch all courses
-            log.info("Courses by author Juhan:");
-            log.info("-------------------------------");
-            for (Course juhanCourse : courseRepository.findByAuthor(juhan)) {
-                log.info(juhanCourse.toString());
-            }
-            log.info("");
-
-            log.info("There are {} courses in the database", courseRepository.count());
-
-            courseRepository.save(
-                    new Course("TESTING_005",
-                            "Fifth course",
-                            CourseTopic.XROAD,
-                            juhan));
-            log.info("After adding a course there are {} courses  in the database",
-                    courseRepository.count());
-
-            Course fetchedCourse = courseRepository.findByTitleAndTopic(
-                    "Fifth course", CourseTopic.XROAD);
-            log.info("Fetched {} from database", fetchedCourse);
-            courseRepository.delete(fetchedCourse);
-
-            log.info("After deleting there are {} courses in the database",
-                    courseRepository.count());
-
-            // fetch persons
-            Person p1 = personRepository.findByNameIgnoreCase("juhan AASARU");
-            log.info("Person looked up by ignoring case: {}", p1);
 
 
-            log.info("Persons with short name:");
-            log.info("-------------------------------");
+            log.info("=== START OF THE SOLUTION ===");
 
-            List<Person> personsWithShortName = personRepository.findByNameNotLongerThan(10);
-            for (Person person : personsWithShortName) {
-                log.info(person.toString());
-            }
-            log.info("");
+            Course xroadCourse = courseRepository.findByCourseId("XROAD");
 
-            log.info("First person with a name starting with 'J':");
-            log.info("-------------------------------");
+            enrollmentRepository.save(new Enrollment(john, xroadCourse, LocalDate.of(2025, 3, 15)));
 
-            Person firstPersonStartingWithJ = personRepository.findFirstByNameStartingWithOrderByName("J");
-            log.info("First person to start with J: {}", firstPersonStartingWithJ);
-            log.info("");
-            log.info("=== THE END OF DEMO ===");
+            enrollmentRepository.save(new Enrollment(john, xroadCourse, LocalDate.of(2025, 2, 28)));
+            enrollmentRepository.save(new Enrollment(john, xroadCourse, LocalDate.of(2025, 2, 1)));
+            enrollmentRepository.save(new Enrollment(john, xroadCourse, LocalDate.of(2025, 2, 15)));
+
+            enrollmentRepository.save(new Enrollment(john, xroadCourse, LocalDate.of(2025, 3, 1)));
+            enrollmentRepository.save(new Enrollment(john, xroadCourse, LocalDate.of(2025, 3, 31)));
+
+
+
+            List<Enrollment> februaryXroadEnrollments = enrollmentRepository.findByCourseAndEnrollmentDateBetweenOrderByEnrollmentDate(xroadCourse,
+                    LocalDate.of(2025, 2, 1),
+                    LocalDate.of(2025, 2, 28));
+
+            februaryXroadEnrollments.forEach(enrollment -> log.info("Enrollment in February for X-Road course: {}", enrollment));
+
+            log.info("=== END OF THE SOLUTION ===");
 
         };
     }

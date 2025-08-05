@@ -28,10 +28,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ConnectDatabaseJpaApplication {
+public class ConnectDatabaseJpaApplicationSolution {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ConnectDatabaseJpaApplication.class);
+		SpringApplication.run(ConnectDatabaseJpaApplicationSolution.class);
 	}
 
 }
