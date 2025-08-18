@@ -1,4 +1,2 @@
 server:
   port: 8005
-
-delayAllRequestsMilliseconds: 2000
