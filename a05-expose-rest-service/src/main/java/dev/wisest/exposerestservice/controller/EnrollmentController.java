@@ -48,30 +48,15 @@ public class EnrollmentController {
         this.enrollmentRepository = enrollmentRepository;
     }
 
-    @GetMapping("/courses/{courseId}/enrollments/all")
-    Iterable<Enrollment> allOfCourse(@PathVariable String courseId) {
+    @GetMapping("/courses/{courseId}/enrollments")
+    Iterable<Enrollment> enrollmentsOfCourse(@PathVariable String courseId) {
 
         Course courseDTO = new Course(courseId);
         return enrollmentRepository.findEnrollmentsByCourse(courseDTO);
     }
 
-    @GetMapping("/courses/{courseId}/enrollments/{startDate}/{endDate}")
-    Iterable<Enrollment> allCoursesBetween(@PathVariable String courseId, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @PathVariable  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-
-        Course courseDTO = new Course(courseId); // DTO is not-so-good style
-
-        return enrollmentRepository.findEnrollmentsByCourseAndEnrollmentDateBetween(courseDTO, startDate, endDate);
-    }
-
-    @GetMapping("/courses/{courseId}/enrollments/{enrollmentUuid}")
-    Enrollment findByCourseAndEnrollmentId(@PathVariable String courseId, @PathVariable UUID enrollmentUuid) {
-
-        return Optional.ofNullable(enrollmentRepository.findByCourseIdAndUuid(courseId, enrollmentUuid))
-                .orElseThrow(() -> new EnrollmentNotFoundException(enrollmentUuid));
-    }
-
     @PostMapping("/courses/{courseId}/enrollments")
-    ResponseEntity<Enrollment> newEnrollment(@PathVariable String courseId, @Valid @RequestBody Enrollment newEnrollment) {
+    ResponseEntity<Enrollment> createEnrollment(@PathVariable String courseId, @Valid @RequestBody Enrollment newEnrollment) {
 
         Assert.isTrue(courseId.equals(newEnrollment.getCourse().getCourseId()),
                 "The courseId in the enrollment payload must match the course id in the URL");
@@ -88,5 +73,22 @@ public class EnrollmentController {
 
         enrollmentRepository.delete(enrollment);
     }
+
+    @GetMapping("/courses/{courseId}/enrollments/{startDate}/{endDate}")
+    Iterable<Enrollment> enrollmentsOfCoursesBetween(@PathVariable String courseId, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @PathVariable  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+
+        Course courseDTO = new Course(courseId); // DTO is not-so-good style
+
+        return enrollmentRepository.findEnrollmentsByCourseAndEnrollmentDateBetween(courseDTO, startDate, endDate);
+    }
+
+    @GetMapping("/courses/{courseId}/enrollments/{enrollmentUuid}")
+    Enrollment findEnrollmentsByCourseAndEnrollmentId(@PathVariable String courseId, @PathVariable UUID enrollmentUuid) {
+
+        return Optional.ofNullable(enrollmentRepository.findByCourseIdAndUuid(courseId, enrollmentUuid))
+                .orElseThrow(() -> new EnrollmentNotFoundException(enrollmentUuid));
+    }
+
+
 
 }
