@@ -11,9 +11,9 @@ curl -X PUT localhost:8005/courses/XROAD/enrollments \
 # 2
 ```
 curl -v -X PUT localhost:8005/courses/XROAD/enrollments \
--H 'Content-type:application/json' \
+-H Content-type:application/json' \
 -d '{ "course": { "courseId": "XROAD" }, 
-"student": { "personId": 1 }, "enrollmentDate": "2010-12-13" }’
+"student": { "personId": 1 }, "enrollmentDate": "2010-12-13" }'
 ```
 
 # 3
