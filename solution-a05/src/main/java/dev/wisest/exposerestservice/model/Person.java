@@ -1,4 +1,4 @@
-package dev.wisest.exposerestservice.interceptor;
+package dev.wisest.exposerestservice.model;
 
 /*-
  * #%L
@@ -24,21 +24,52 @@ package dev.wisest.exposerestservice.interceptor;
  * #L%
  */
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-@Configuration
-public class DelayGetRequests implements WebMvcConfigurer {
+@Entity
+public class Person {
 
-    @Value("${delayAllRequestsMilliseconds}")
-    private long delayAllRequestsMilliseconds;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long personId;
 
+    private String name;
+
+    protected Person() {
+    }
+
+    public Person(Long personId) {
+        this.personId = personId;
+    }
+
+    public Person(String name) {
+        this.name = name;
+    }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new DelayResponsesInterceptor(delayAllRequestsMilliseconds));
+    public String toString() {
+        return String.format(
+                "Person[id=%d, name='%s']",
+                personId, name);
+    }
+
+    public Long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Long id) {
+        this.personId = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

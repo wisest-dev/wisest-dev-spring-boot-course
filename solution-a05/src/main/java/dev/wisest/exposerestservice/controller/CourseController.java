@@ -1,4 +1,4 @@
-package dev.wisest.exposerestservice.dto;
+package dev.wisest.exposerestservice.controller;
 
 /*-
  * #%L
@@ -24,48 +24,26 @@ package dev.wisest.exposerestservice.dto;
  * #L%
  */
 
-import java.time.LocalDate;
-import java.util.UUID;
+import dev.wisest.exposerestservice.model.Course;
+import dev.wisest.exposerestservice.repository.CourseRepository;
+import dev.wisest.exposerestservice.repository.exception.CourseNotFoundException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-public class EnrollmentDTO {
+@RestController
+public class CourseController {
 
-    private UUID uuid;
+    private final CourseRepository courseRepository;
 
-    private String studentId;
-
-    private String courseId;
-
-    private LocalDate enrollmentDate;
-
-    public UUID getUuid() {
-        return uuid;
+    public CourseController(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    @GetMapping("/courses/{courseId}")
+    Course getCourse(@PathVariable String courseId) {
+        return courseRepository.findByCourseId(courseId)
+                .orElseThrow(() -> new CourseNotFoundException(courseId));
     }
 
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
-
-    public LocalDate getEnrollmentDate() {
-        return enrollmentDate;
-    }
-
-    public void setEnrollmentDate(LocalDate enrollmentDate) {
-        this.enrollmentDate = enrollmentDate;
-    }
 }

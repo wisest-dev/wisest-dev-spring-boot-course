@@ -145,9 +145,10 @@ public class EnrollmentIntegrationTest {
 
         HttpStatusCode statusCode = responseEntity.getStatusCode();
 
-        Assertions.assertThat(statusCode).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        Assertions.assertThat(statusCode).isEqualTo(HttpStatus.BAD_REQUEST);
 
-        Assertions.assertThat(responseEntity.getBody()).contains("\"timestamp\"");
+        Assertions.assertThat(responseEntity.getBody())
+                .isEqualTo("Validation failed: The courseId in path and body must match");
     }
 
     @Test

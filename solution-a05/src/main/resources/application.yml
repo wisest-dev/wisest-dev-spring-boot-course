@@ -1,0 +1,4 @@
+server:
+  port: 8005
+
+delayAllDeleteRequestsMilliseconds: 2000

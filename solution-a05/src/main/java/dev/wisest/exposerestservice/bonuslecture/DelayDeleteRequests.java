@@ -1,4 +1,4 @@
-package dev.wisest.exposerestservice.interceptor;
+package dev.wisest.exposerestservice.bonuslecture;
 
 /*-
  * #%L
@@ -24,28 +24,21 @@ package dev.wisest.exposerestservice.interceptor;
  * #L%
  */
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-public class DelayResponsesInterceptor implements HandlerInterceptor {
+@Configuration
+public class DelayDeleteRequests implements WebMvcConfigurer {
 
-    Logger logger = LoggerFactory.getLogger(DelayResponsesInterceptor.class);
+    @Value("${delayAllDeleteRequestsMilliseconds}")
+    private long delayAllDeleteRequestsMilliseconds;
 
-    private final long delayAllRequestsMilliseconds;
-
-    public DelayResponsesInterceptor(long delayAllRequestsMilliseconds) {
-        logger.warn("I will delay all requests {} milliseconds.", delayAllRequestsMilliseconds);
-        this.delayAllRequestsMilliseconds = delayAllRequestsMilliseconds;
-    }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("Request {} came in, I will delay the response for {} milliseconds.", request.getRequestURL(), delayAllRequestsMilliseconds);
-        Thread.sleep(delayAllRequestsMilliseconds);
-        return true;
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new DelayResponsesInterceptor(delayAllDeleteRequestsMilliseconds));
     }
 
 }
