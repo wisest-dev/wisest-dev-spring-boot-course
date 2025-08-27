@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: useRestTemplate # options useRestTemplate useRestClient, bonusLecture
+    active: bonusLecture # options useRestTemplate useRestClient, bonusLecture
   main:
     web-application-type: none
 

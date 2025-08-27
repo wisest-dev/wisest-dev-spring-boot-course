@@ -32,11 +32,6 @@
 
     <logger name="dev.wisest" level="DEBUG" />
 
-    <logger name="org.springframework.web.reactive.function.client" level="TRACE" />
-
-
-    <logger name="reactor.netty" level="INFO" />
-    <logger name="io.netty.resolver.dns.DnsServerAddressStreamProviders" level="OFF" />
     <root level="warn">
         <appender-ref ref="STDOUT" />
     </root>

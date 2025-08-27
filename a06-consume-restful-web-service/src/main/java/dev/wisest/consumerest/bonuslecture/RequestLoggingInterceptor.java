@@ -39,13 +39,21 @@ public class RequestLoggingInterceptor implements ClientHttpRequestInterceptor {
     Logger log = LoggerFactory.getLogger(RequestLoggingInterceptor.class);
 
     @Override
-    public ClientHttpResponse intercept(@Nonnull HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+    public ClientHttpResponse intercept(
+            @Nonnull HttpRequest request,
+            byte[] body,
+            ClientHttpRequestExecution execution) throws IOException {
 
         if (log.isDebugEnabled()) {
-
             String bodySent = new String(body, StandardCharsets.UTF_8);
-
-            log.debug("The JSON that was sent: {}", bodySent);
+            if (bodySent.isBlank()) {
+                log.debug("Empty payload was sent to {} with method {}",
+                        request.getURI(), request.getMethod());
+            }
+            else {
+                log.debug("To {} following JSON was sent: {}",
+                        request.getURI(), bodySent);
+            }
         }
 
         ClientHttpResponse methodCallResult = execution.execute(request, body);
@@ -53,8 +61,13 @@ public class RequestLoggingInterceptor implements ClientHttpRequestInterceptor {
         if (log.isDebugEnabled()) {
             byte[] responseBody = methodCallResult.getBody().readAllBytes();
             String result = new String(responseBody, StandardCharsets.UTF_8);
-            log.debug("The JSON that was received: {}", result);
-            return new BufferingClientHttpResponseWrapper(methodCallResult, responseBody);
+            if (result.isBlank()) {
+                log.debug("Empty payload was received");
+            }
+            else {
+                log.debug("The JSON that was received: {}", result);
+            }
+            return new MyResponseWrapper(methodCallResult, responseBody);
         }
         else {
             return methodCallResult;

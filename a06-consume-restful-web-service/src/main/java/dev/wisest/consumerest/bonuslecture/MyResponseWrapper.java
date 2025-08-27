@@ -32,46 +32,45 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class BufferingClientHttpResponseWrapper  implements ClientHttpResponse {
+public class MyResponseWrapper implements ClientHttpResponse {
 
-    private final ClientHttpResponse response;  // Original response
-    private final byte[] responseBody;  // Buffered response body
+    private final ClientHttpResponse response;
+    private final byte[] responseBody;
 
-    public BufferingClientHttpResponseWrapper(ClientHttpResponse response, byte[] responseBody) throws IOException {
+    public MyResponseWrapper(ClientHttpResponse response, byte[] responseBody) throws IOException {
         this.response = response;
-        this.responseBody = responseBody;  // Buffer the response body
+        this.responseBody = responseBody;
     }
 
     private byte[] streamToByteArray(InputStream inputStream) throws IOException {
-        // Read the input stream into a byte array
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         inputStream.transferTo(baos);
-        return baos.toByteArray(); // Return the byte array
+        return baos.toByteArray();
     }
 
     @Override
     public InputStream getBody() {
-        // Return an InputStream from the buffered response body
         return new ByteArrayInputStream(responseBody);
     }
 
     @Override
     public HttpStatusCode getStatusCode() throws IOException {
-        return response.getStatusCode();  // Delegate to the original response
+        return response.getStatusCode();
     }
 
     @Override
     public String getStatusText() throws IOException {
-        return response.getStatusText();  // Delegate to the original response
+        return response.getStatusText();
     }
 
     @Override
     public void close() {
-        response.close();  // Close the original response
+        response.close();
     }
 
     @Override
     public org.springframework.http.HttpHeaders getHeaders() {
-        return response.getHeaders();  // Delegate to the original response
+        return response.getHeaders();
     }
+
 }

@@ -59,7 +59,12 @@ public class ConsumerWithRestClient {
                     new WebCourse("XROAD"),
                     LocalDate.of(2024, 2, 29));
 
-            enrollmentRepositoryWithRestClient.addEnrollment(enrollmentToAdd);
+            Enrollment addedEnrollment = enrollmentRepositoryWithRestClient
+                    .addEnrollment(enrollmentToAdd);
+
+            enrollmentRepositoryWithRestClient.deleteEnrollment(
+                    addedEnrollment.getCourse().getId(),
+                    addedEnrollment.getUuid());
 
         };
     }
