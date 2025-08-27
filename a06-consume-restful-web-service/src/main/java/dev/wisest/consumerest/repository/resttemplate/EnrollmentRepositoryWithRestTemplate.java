@@ -51,7 +51,7 @@ public class EnrollmentRepositoryWithRestTemplate {
                 "/courses/{courseId}/enrollments",
                 enrollmentToAdd,
                 Enrollment.class,
-                "XROAD", enrollmentToAdd
+                "XROAD"
         );
 
 

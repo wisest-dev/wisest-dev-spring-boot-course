@@ -36,6 +36,7 @@ public class WebCourse {
 
 	private String title;
 
+    @JsonProperty("topic")
 	private String courseTopic;
 
 	private Person author;
@@ -55,7 +56,7 @@ public class WebCourse {
 	@Override
 	public String toString() {
 		return String.format(
-				"Course[id=%s, title='%s', courseTopic='%s' author='%s']",
+				"WebCourse[id=%s, title='%s', courseTopic='%s' author='%s']",
                 id, title, courseTopic, author);
 	}
 
