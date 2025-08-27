@@ -2,7 +2,7 @@ package dev.wisest.consumerest.model;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -25,17 +25,22 @@ package dev.wisest.consumerest.model;
  */
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Person {
 
-    private Long personId;
+    @JsonProperty("personId")
+    private Long id;
 
     private String name;
 
     protected Person() {
     }
 
-    public Person(Long personId) {
-        this.personId = personId;
+    public Person(Long id) {
+        this.id = id;
     }
 
     public Person(String name) {
@@ -46,15 +51,15 @@ public class Person {
     public String toString() {
         return String.format(
                 "Person[id=%d, name='%s']",
-                personId, name);
+                id, name);
     }
 
-    public Long getPersonId() {
-        return personId;
+    public Long getId() {
+        return id;
     }
 
-    public void setPersonId(Long id) {
-        this.personId = id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

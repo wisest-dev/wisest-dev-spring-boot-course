@@ -2,7 +2,7 @@ package dev.wisest.consumerest.model;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -25,45 +25,53 @@ package dev.wisest.consumerest.model;
  */
 
 
-public class Course {
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-	private String courseId;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class WebCourse {
+
+    @JsonProperty("courseId")
+    private String id;
 
 	private String title;
 
-	//private CourseTopic topic;
+	private String courseTopic;
 
 	private Person author;
 
-	protected Course() {}
-	public Course(String courseId) {
-		this.courseId = courseId;
+	protected WebCourse() {}
+	public WebCourse(String id) {
+		this.id = id;
 	}
 
-	public Course(String courseId, String title, CourseTopic topic, Person author) {
-		this.courseId = courseId;
+	public WebCourse(String id, String title, String courseTopic, Person author) {
+		this.id = id;
 		this.title = title;
-		//this.topic = topic;
+		this.courseTopic = courseTopic;
 		this.author = author;
 	}
 
 	@Override
 	public String toString() {
 		return String.format(
-				"Course[id=%s, title='%s', author='%s']",
-				courseId, title, author);
+				"Course[id=%s, title='%s', courseTopic='%s' author='%s']",
+                id, title, courseTopic, author);
 	}
 
-	public String getCourseId() {
-		return courseId;
+	public String getId() {
+		return id;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
+    public String getCourseTopic() {
+        return courseTopic;
+    }
 
-	public Person getAuthor() {
+    public Person getAuthor() {
 		return author;
 	}
 

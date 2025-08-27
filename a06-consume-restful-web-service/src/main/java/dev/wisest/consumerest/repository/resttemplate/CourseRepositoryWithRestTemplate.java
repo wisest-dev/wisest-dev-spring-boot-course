@@ -2,7 +2,7 @@ package dev.wisest.consumerest.repository.resttemplate;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -24,14 +24,14 @@ package dev.wisest.consumerest.repository.resttemplate;
  * #L%
  */
 
-import dev.wisest.consumerest.model.Course;
+import dev.wisest.consumerest.model.WebCourse;
 import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
-import org.yaml.snakeyaml.util.Tuple;
 
 @Repository
 public class CourseRepositoryWithRestTemplate {
@@ -40,25 +40,41 @@ public class CourseRepositoryWithRestTemplate {
     @Resource
     private RestTemplate restTemplate;
 
-    public Tuple<Course, Course> getTwoCourses(String secondCourseId) {
+    public WebCourse getCourse(String courseId) {
 
-        Course xroadCourse = restTemplate.getForObject(
-                "/courses/XROAD",
-                Course.class);
-        log.info("REST TEMPLATE :: XROAD course by: {}", xroadCourse.getAuthor());
-
-        ResponseEntity<Course> secondCourseResponse = restTemplate.getForEntity(
+        WebCourse webCourse = restTemplate.getForObject(
                 "/courses/{courseId}",
-                Course.class,
-                secondCourseId);
+                WebCourse.class,
+                courseId);
+        if (webCourse == null) {
+            log.warn("REST TEMPLATE :: Course with ID {} not found", courseId);
+        }
+        else {
+            log.info("REST TEMPLATE :: Found course '{}' by {} on topic {}",
+                    webCourse.getTitle(), webCourse.getAuthor().getName(), webCourse.getCourseTopic());
+        }
+        return webCourse;
 
-        Course secondCourse = secondCourseResponse.getBody();
-
-        log.info("REST TEMPLATE :: {} COURSE: {}, status code was {}",
-                secondCourseId, secondCourse, secondCourseResponse.getStatusCode());
-
-        return new Tuple<>(xroadCourse, secondCourse);
     }
 
+    public WebCourse getCourseWithHeaders(String courseId) {
+
+        ResponseEntity<WebCourse> responseWithHeaders = restTemplate.getForEntity(
+                "/courses/{courseId}",
+                WebCourse.class,
+                courseId);
+
+        WebCourse webCourse = responseWithHeaders.getBody();
+        HttpStatusCode status = responseWithHeaders.getStatusCode();
+
+        if (webCourse == null) {
+            log.warn("REST TEMPLATE :: Course with ID {} not found. Status code was {}", courseId, status);
+        }
+        else {
+            log.info("REST TEMPLATE :: Course '{}' by {}. Status: {}", webCourse.getTitle(), webCourse.getAuthor(), status);
+        }
+
+        return webCourse;
+    }
 
 }

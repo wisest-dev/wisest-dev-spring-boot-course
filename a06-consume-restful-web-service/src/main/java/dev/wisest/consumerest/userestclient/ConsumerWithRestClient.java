@@ -1,8 +1,8 @@
-package dev.wisest.consumerest.example02;
+package dev.wisest.consumerest.userestclient;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -24,7 +24,7 @@ package dev.wisest.consumerest.example02;
  * #L%
  */
 
-import dev.wisest.consumerest.model.Course;
+import dev.wisest.consumerest.model.WebCourse;
 import dev.wisest.consumerest.model.Enrollment;
 import dev.wisest.consumerest.model.Person;
 import dev.wisest.consumerest.repository.restclient.CourseRepositoryWithRestClient;
@@ -41,23 +41,21 @@ import org.springframework.web.client.RestClient;
 import java.time.LocalDate;
 
 @Configuration
-@Profile("example02")
+@Profile("useRestClient")
 public class ConsumerWithRestClient {
     Logger log = LoggerFactory.getLogger(ConsumerWithRestClient.class);
-
 
     @Resource
     CourseRepositoryWithRestClient courseRepositoryWithRestClient;
 
-
     @Bean
     public CommandLineRunner run(RestClient restClient, EnrollmentRepositoryWithRestClient enrollmentRepository, EnrollmentRepositoryWithRestClient enrollmentRepositoryWithRestClient) throws Exception {
         return args -> {
-            Course course = courseRepositoryWithRestClient.getCourse("XROAD");
+            WebCourse webCourse = courseRepositoryWithRestClient.getCourse("XROAD");
 
             Enrollment enrollmentToAdd = new Enrollment(
                     new Person(1L),
-                    new Course("XROAD"),
+                    new WebCourse("XROAD"),
                     LocalDate.of(2025, 1, 13));
 
             Enrollment addedEnrollment = enrollmentRepositoryWithRestClient.addEnrollment(enrollmentToAdd);
@@ -65,7 +63,6 @@ public class ConsumerWithRestClient {
             log.info("created enrollment: {}", addedEnrollment);
 
             enrollmentRepositoryWithRestClient.deleteEnrollment("XROAD", addedEnrollment.getUuid());
-
         };
     }
 }

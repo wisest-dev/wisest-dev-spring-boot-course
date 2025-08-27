@@ -2,7 +2,7 @@ package dev.wisest.consumerest.repository.resttemplate;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -69,7 +69,7 @@ public class EnrollmentRepositoryWithRestTemplate {
     }
 
 
-    public void deleteEnrollment(String courseId, String enrollmentUuidToDelete) {
+    public void deleteEnrollment(String courseId, UUID enrollmentUuidToDelete) {
         ResponseEntity<Void> deleteResult = restTemplate
                 .exchange("/courses/{courseId}/enrollments/{enrollmentId}",
                         HttpMethod.DELETE,

@@ -31,7 +31,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 public class DelayResponsesInterceptor implements HandlerInterceptor {
-
     Logger logger = LoggerFactory.getLogger(DelayResponsesInterceptor.class);
 
     private final long delayAllDeleteRequestsMilliseconds;

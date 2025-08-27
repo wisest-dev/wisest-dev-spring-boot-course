@@ -24,11 +24,14 @@ package dev.wisest.exposerestservice.controller;
  * #L%
  */
 
+import dev.wisest.exposerestservice.bonuslecture.DelayResponsesInterceptor;
 import dev.wisest.exposerestservice.model.Course;
 import dev.wisest.exposerestservice.model.Enrollment;
 import dev.wisest.exposerestservice.repository.EnrollmentRepository;
 import dev.wisest.exposerestservice.repository.exception.EnrollmentNotFoundException;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +44,7 @@ import java.util.UUID;
 
 @RestController
 public class EnrollmentController {
+    Logger logger = LoggerFactory.getLogger(EnrollmentController.class);
 
     private final EnrollmentRepository enrollmentRepository;
 
@@ -62,6 +66,9 @@ public class EnrollmentController {
                 "The courseId in path and body must match");
 
         Enrollment savedEnrollment = enrollmentRepository.save(newEnrollment);
+
+        logger.info("Created new enrollment {} for course {}", savedEnrollment.getUuid(), courseId);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEnrollment);
     }
 

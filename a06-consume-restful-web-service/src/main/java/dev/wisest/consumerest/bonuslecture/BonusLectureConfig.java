@@ -1,8 +1,8 @@
-package dev.wisest.consumerest.model;
+package dev.wisest.consumerest.bonuslecture;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -24,18 +24,26 @@ package dev.wisest.consumerest.model;
  * #L%
  */
 
-public enum CourseTopic {
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
+import org.springframework.web.client.RestClient;
 
-    JAVA("Java"), APPLYING_TO_JOB("Applying to a job"), XROAD("XRoad");
+@Configuration
+@Profile("bonusLecture")
+public class BonusLectureConfig {
 
-    private final String topicName;
+    @Value("${enrollmentWebservice.url}")
+    String enrollmentWebserviceUrl;
 
-    CourseTopic(String topicName) {
-        this.topicName = topicName;
+    @Bean
+    @Primary
+    public RestClient restClientOverridden() {
+        return RestClient.builder()
+                .baseUrl(enrollmentWebserviceUrl)
+                .requestInterceptor(new RequestLoggingInterceptor())
+                .build();
     }
-
-    public String getTopicName() {
-        return topicName;
-    }
-
 }

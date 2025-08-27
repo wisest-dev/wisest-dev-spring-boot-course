@@ -14,6 +14,11 @@
         <option value="$PROJECT_DIR$/a09-package-the-application/pom.xml" />
         <option value="$PROJECT_DIR$/a08-secure-the-application/pom.xml" />
         <option value="$PROJECT_DIR$/a10-use-shared-library/pom.xml" />
+        <option value="$PROJECT_DIR$/solution-a01/pom.xml" />
+        <option value="$PROJECT_DIR$/solution-a02/pom.xml" />
+        <option value="$PROJECT_DIR$/solution-a03/pom.xml" />
+        <option value="$PROJECT_DIR$/solution-a04/pom.xml" />
+        <option value="$PROJECT_DIR$/solution-a05/pom.xml" />
       </list>
     </option>
   </component>

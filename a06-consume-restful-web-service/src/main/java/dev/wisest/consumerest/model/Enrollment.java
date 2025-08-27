@@ -2,7 +2,7 @@ package dev.wisest.consumerest.model;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -25,16 +25,23 @@ package dev.wisest.consumerest.model;
  */
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Enrollment {
     private UUID uuid;
 
     private Person student;
 
-    private Course course;
+    @JsonProperty("course")
+    private WebCourse webCourse;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate enrollmentDate;
 
     public Enrollment() {
@@ -44,19 +51,18 @@ public class Enrollment {
         this.uuid = uuid;
     }
 
-    public Enrollment(Person student, Course course, LocalDate enrollmentDate) {
+    public Enrollment(Person student, WebCourse webCourse, LocalDate enrollmentDate) {
         this.student = student;
-        this.course = course;
+        this.webCourse = webCourse;
         this.enrollmentDate = enrollmentDate;
     }
 
-    public Enrollment(UUID uuid, Person student, Course course, LocalDate enrollmentDate) {
+    public Enrollment(UUID uuid, Person student, WebCourse webCourse, LocalDate enrollmentDate) {
         this.uuid = uuid;
         this.student = student;
-        this.course = course;
+        this.webCourse = webCourse;
         this.enrollmentDate = enrollmentDate;
     }
-
 
     public void setUuid(UUID id) {
         this.uuid = id;
@@ -74,12 +80,12 @@ public class Enrollment {
         this.student = student;
     }
 
-    public Course getCourse() {
-        return course;
+    public WebCourse getCourse() {
+        return webCourse;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourse(WebCourse webCourse) {
+        this.webCourse = webCourse;
     }
 
     public LocalDate getEnrollmentDate() {
@@ -95,7 +101,7 @@ public class Enrollment {
         return "Enrollment{" +
                 "uuid=" + uuid +
                 ", student=" + student +
-                ", course=" + course +
+                ", course=" + webCourse +
                 ", enrollmentDate=" + enrollmentDate +
                 '}';
     }

@@ -1,8 +1,8 @@
 spring:
   profiles:
-    active: example02
-  main:
-    web-application-type: none
+    active: bonusLecture # options useRestTemplate useRestClient, bonusLecture
+#  main:
+#    web-application-type: none
 
 enrollmentWebservice:
   url: http://localhost:8005

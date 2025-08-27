@@ -2,7 +2,7 @@ package dev.wisest.consumerest;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -25,7 +25,7 @@ package dev.wisest.consumerest;
  */
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
@@ -48,7 +48,7 @@ public class Config {
     }
 
     @Bean
-    public RestClient restClient3() {
+    public RestClient restClientRegular() {
         return RestClient.builder()
                 .baseUrl(enrollmentWebserviceUrl)
                 .build();

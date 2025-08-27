@@ -1,8 +1,8 @@
-package dev.wisest.consumerest.example03;
+package dev.wisest.consumerest.bonuslecture;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -24,7 +24,9 @@ package dev.wisest.consumerest.example03;
  * #L%
  */
 
-import dev.wisest.consumerest.model.Course;
+import dev.wisest.consumerest.model.Enrollment;
+import dev.wisest.consumerest.model.Person;
+import dev.wisest.consumerest.model.WebCourse;
 import dev.wisest.consumerest.repository.restclient.CourseRepositoryWithRestClient;
 import dev.wisest.consumerest.repository.restclient.EnrollmentRepositoryWithRestClient;
 import jakarta.annotation.Resource;
@@ -36,22 +38,28 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.client.RestClient;
 
+import java.time.LocalDate;
+
 @Configuration
-@Profile("example03")
+@Profile("bonusLecture")
 public class ConsumerWithRestClient {
     Logger log = LoggerFactory.getLogger(ConsumerWithRestClient.class);
 
-
     @Resource
     CourseRepositoryWithRestClient courseRepositoryWithRestClient;
-
 
     @Bean
     public CommandLineRunner run(RestClient restClient, EnrollmentRepositoryWithRestClient enrollmentRepository, EnrollmentRepositoryWithRestClient enrollmentRepositoryWithRestClient) throws Exception {
         return args -> {
 
-            Course course = courseRepositoryWithRestClient.getCourse("XROAD");
+            WebCourse webCourse = courseRepositoryWithRestClient.getCourse("XROAD");
 
+            Enrollment enrollmentToAdd = new Enrollment(
+                    new Person(1L),
+                    new WebCourse("XROAD"),
+                    LocalDate.of(2024, 2, 29));
+
+            enrollmentRepositoryWithRestClient.addEnrollment(enrollmentToAdd);
 
         };
     }

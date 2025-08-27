@@ -6,33 +6,53 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="a05-expose-rest-service" />
         <module name="a10-coding-school" />
         <module name="a01-get-started-with-spring-boot" />
         <module name="a04-connect-to-database-using-jpa" />
-        <module name="a10-course-completion-library" />
         <module name="a08-secure-the-application" />
         <module name="a07-cover-code-with-tests" />
+        <module name="solution-a04" />
         <module name="a09-package-the-application" />
+        <module name="solution-a03" />
         <module name="a06-consume-restful-web-service" />
         <module name="a02-serve-web-content" />
         <module name="a03-validate-form-input" />
+        <module name="solution-a05" />
+        <module name="a05-expose-rest-service" />
+        <module name="solution-a02" />
+        <module name="solution-a01" />
+        <module name="a10-course-completion-library" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="a01-get-started-with-spring-boot (1)" target="17" />
+      <module name="a02-serve-web-content (1)" target="17" />
+      <module name="a04-connect-to-database-using-jpa (1)" target="17" />
+      <module name="a05-expose-rest-service (1)" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="a01-get-started-with-spring-boot" options="-parameters" />
+      <module name="a01-get-started-with-spring-boot (1)" options="-parameters" />
       <module name="a02-serve-web-content" options="-parameters" />
+      <module name="a02-serve-web-content (1)" options="-parameters" />
       <module name="a03-validate-form-input" options="-parameters" />
       <module name="a04-connect-to-database-using-jpa" options="-parameters" />
+      <module name="a04-connect-to-database-using-jpa (1)" options="-parameters" />
       <module name="a05-expose-rest-service" options="-parameters" />
+      <module name="a05-expose-rest-service (1)" options="-parameters" />
       <module name="a06-consume-restful-web-service" options="-parameters" />
       <module name="a07-cover-code-with-tests" options="-parameters" />
       <module name="a08-secure-the-application" options="-parameters" />
       <module name="a09-package-the-application" options="-parameters" />
       <module name="a10-coding-school" options="-parameters" />
       <module name="a10-course-completion-library" options="-parameters" />
+      <module name="solution-a01" options="-parameters" />
+      <module name="solution-a02" options="-parameters" />
+      <module name="solution-a03" options="-parameters" />
+      <module name="solution-a04" options="-parameters" />
+      <module name="solution-a05" options="-parameters" />
     </option>
   </component>
 </project>

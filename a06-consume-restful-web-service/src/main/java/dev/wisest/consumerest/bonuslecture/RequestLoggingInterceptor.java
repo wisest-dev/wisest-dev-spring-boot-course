@@ -1,8 +1,8 @@
-package dev.wisest.consumerest.example03;
+package dev.wisest.consumerest.bonuslecture;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -35,26 +35,30 @@ import org.springframework.http.client.ClientHttpResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class LoggingRequestInterceptor implements ClientHttpRequestInterceptor {
-    Logger log = LoggerFactory.getLogger(LoggingRequestInterceptor.class);
+public class RequestLoggingInterceptor implements ClientHttpRequestInterceptor {
+    Logger log = LoggerFactory.getLogger(RequestLoggingInterceptor.class);
 
     @Override
     public ClientHttpResponse intercept(@Nonnull HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
 
-
         if (log.isDebugEnabled()) {
-            log.debug("The JSON that was sent: {}", body);
+
+            String bodySent = new String(body, StandardCharsets.UTF_8);
+
+            log.debug("The JSON that was sent: {}", bodySent);
         }
 
         ClientHttpResponse methodCallResult = execution.execute(request, body);
 
         if (log.isDebugEnabled()) {
-
-            String result = new String(methodCallResult.getBody().readAllBytes(), StandardCharsets.UTF_8);
-
+            byte[] responseBody = methodCallResult.getBody().readAllBytes();
+            String result = new String(responseBody, StandardCharsets.UTF_8);
             log.debug("The JSON that was received: {}", result);
+            return new BufferingClientHttpResponseWrapper(methodCallResult, responseBody);
         }
-        return methodCallResult;
+        else {
+            return methodCallResult;
+        }
 
     }
 }

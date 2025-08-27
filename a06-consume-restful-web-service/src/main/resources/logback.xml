@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   #%L
-  Code accompanying course "Learn Spring Boot by Examining 10+ Practical Applications"
+  Code accompanying webCourse "Learn Spring Boot by Examining 10+ Practical Applications"
   %%
   Copyright (C) 2024 - 2025 Juhan Aasaru and Wisest.dev
   %%
@@ -36,7 +36,7 @@
 
 
     <logger name="reactor.netty" level="INFO" />
-    <logger name="io.netty" level="INFO" />
+    <logger name="io.netty.resolver.dns.DnsServerAddressStreamProviders" level="OFF" />
     <root level="warn">
         <appender-ref ref="STDOUT" />
     </root>

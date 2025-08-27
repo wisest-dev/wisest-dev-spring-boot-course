@@ -1,8 +1,8 @@
-package dev.wisest.consumerest.example01;
+package dev.wisest.consumerest.useresttemplate;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -24,7 +24,7 @@ package dev.wisest.consumerest.example01;
  * #L%
  */
 
-import dev.wisest.consumerest.model.Course;
+import dev.wisest.consumerest.model.WebCourse;
 import dev.wisest.consumerest.model.Enrollment;
 import dev.wisest.consumerest.model.Person;
 import dev.wisest.consumerest.repository.resttemplate.CourseRepositoryWithRestTemplate;
@@ -32,45 +32,46 @@ import dev.wisest.consumerest.repository.resttemplate.EnrollmentRepositoryWithRe
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.yaml.snakeyaml.util.Tuple;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Configuration
-@Profile("example01")
+@Profile("useRestTemplate")
 public class ConsumerWithRestTemplate {
     Logger log = LoggerFactory.getLogger(ConsumerWithRestTemplate.class);
-
-
-
-    public static void main(String[] args) {
-        SpringApplication.run(ConsumerWithRestTemplate.class, args);
-    }
-
 
     @Bean
     public CommandLineRunner run(CourseRepositoryWithRestTemplate courseRepositoryWithRestTemplate,
                                  EnrollmentRepositoryWithRestTemplate enrollmentRepositoryWithRestTemplate) {
         return args -> {
 
-            Tuple<Course, Course> twoCourses = courseRepositoryWithRestTemplate.getTwoCourses("BEGINNER_SPRING_BOOT");
+            try {
 
-            Course xRoadCourse = twoCourses._1();
+                WebCourse xRoadWebCourse = courseRepositoryWithRestTemplate.getCourse("XROAD");
+
+                WebCourse springBootWebCourse = courseRepositoryWithRestTemplate.getCourseWithHeaders("BEGINNER_SPRING_BOOT");
 
 
-            Enrollment enrollmentToAdd = new Enrollment(new Person(1L), xRoadCourse,
-                    LocalDate.of(2025, 1, 13));
+                Enrollment enrollmentToAdd = new Enrollment(new Person(1L), xRoadWebCourse,
+                        LocalDate.of(2025, 1, 13));
 
-            UUID addedEnrollment = enrollmentRepositoryWithRestTemplate.addEnrollment(enrollmentToAdd);
+                UUID addedEnrollmentUuid = enrollmentRepositoryWithRestTemplate.addEnrollment(enrollmentToAdd);
+
+                enrollmentRepositoryWithRestTemplate.deleteEnrollment(
+                        enrollmentToAdd.getCourse().getId(),
+                        addedEnrollmentUuid);
+
+            } catch (ResourceAccessException e) {
+                log.error("Cannot connect to the server. Are you sure the a05 application is running on localhost:8005?", e);
+            }
 
         };
     }
-
 
 }
 

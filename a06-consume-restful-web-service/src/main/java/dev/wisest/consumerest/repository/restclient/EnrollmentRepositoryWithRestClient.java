@@ -2,7 +2,7 @@ package dev.wisest.consumerest.repository.restclient;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -44,7 +44,7 @@ public class EnrollmentRepositoryWithRestClient {
     }
 
     public Enrollment addEnrollment(Enrollment enrollmentToAdd) {
-        String courseId = enrollmentToAdd.getCourse().getCourseId();
+        String courseId = enrollmentToAdd.getCourse().getId();
         log.info("REST CLIENT :: About to create an enrollment in course {}", courseId);
 
         ResponseEntity<Enrollment> addedEnrollmentResponse = restClient
@@ -57,6 +57,21 @@ public class EnrollmentRepositoryWithRestClient {
         return addedEnrollmentResponse.getBody();
     }
 
+    public void addOrUpdateEnrollment(Enrollment enrollmentToAddOrUpdate) {
+        String courseId = enrollmentToAddOrUpdate.getCourse().getId();
+        UUID enrollmentId = enrollmentToAddOrUpdate.getUuid();
+        log.info("REST CLIENT :: About to add or update an enrollment with id {} in course {}", enrollmentId, courseId);
+
+        ResponseEntity<Void> addOrUpdateResult = restClient
+                .put()
+                .uri("/courses/{courseId}/enrollments", courseId)
+                .body(enrollmentToAddOrUpdate)
+                .retrieve()
+                .toBodilessEntity();
+
+        log.debug("Status code was returned: {}", addOrUpdateResult.getStatusCode());
+    }
+
     public void deleteEnrollment(String courseId, UUID enrollmentId) {
 
         ResponseEntity<Void> deleteResult = restClient.delete()
@@ -65,8 +80,8 @@ public class EnrollmentRepositoryWithRestClient {
                 .toBodilessEntity();
 
         log.debug("Status code was returned: {}", deleteResult.getStatusCode());
-
-
     }
+
+
 
 }
