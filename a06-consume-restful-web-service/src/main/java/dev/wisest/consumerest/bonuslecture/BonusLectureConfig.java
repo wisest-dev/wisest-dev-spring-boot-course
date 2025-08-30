@@ -46,4 +46,5 @@ public class BonusLectureConfig {
                 .requestInterceptor(new RequestLoggingInterceptor())
                 .build();
     }
+
 }

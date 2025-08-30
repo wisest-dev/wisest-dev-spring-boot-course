@@ -49,7 +49,7 @@ public class ConsumerWithRestClient {
     CourseRepositoryWithRestClient courseRepositoryWithRestClient;
 
     @Bean
-    public CommandLineRunner run(RestClient restClient, EnrollmentRepositoryWithRestClient enrollmentRepository, EnrollmentRepositoryWithRestClient enrollmentRepositoryWithRestClient) throws Exception {
+    public CommandLineRunner run(EnrollmentRepositoryWithRestClient enrollmentRepositoryWithRestClient) {
         return args -> {
             WebCourse webCourse = courseRepositoryWithRestClient.getCourse("XROAD");
 

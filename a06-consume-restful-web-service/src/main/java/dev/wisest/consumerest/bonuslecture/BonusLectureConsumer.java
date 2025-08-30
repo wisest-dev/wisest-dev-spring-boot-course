@@ -36,20 +36,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.web.client.RestClient;
 
 import java.time.LocalDate;
 
 @Configuration
 @Profile("bonusLecture")
-public class ConsumerWithRestClient {
-    Logger log = LoggerFactory.getLogger(ConsumerWithRestClient.class);
+public class BonusLectureConsumer {
+    Logger log = LoggerFactory.getLogger(BonusLectureConsumer.class);
 
     @Resource
     CourseRepositoryWithRestClient courseRepositoryWithRestClient;
 
     @Bean
-    public CommandLineRunner run(RestClient restClient, EnrollmentRepositoryWithRestClient enrollmentRepository, EnrollmentRepositoryWithRestClient enrollmentRepositoryWithRestClient) throws Exception {
+    public CommandLineRunner run(EnrollmentRepositoryWithRestClient enrollmentRepositoryWithRestClient) {
         return args -> {
 
             WebCourse webCourse = courseRepositoryWithRestClient.getCourse("XROAD");

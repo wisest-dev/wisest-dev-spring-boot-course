@@ -42,5 +42,4 @@ public class ConsumingRestApplication {
                 .run(args);
 	}
 
-
 }
