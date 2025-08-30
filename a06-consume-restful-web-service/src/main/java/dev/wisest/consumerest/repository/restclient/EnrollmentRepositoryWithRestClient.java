@@ -57,21 +57,6 @@ public class EnrollmentRepositoryWithRestClient {
         return addedEnrollmentResponse.getBody();
     }
 
-    public void addOrUpdateEnrollment(Enrollment enrollmentToAddOrUpdate) {
-        String courseId = enrollmentToAddOrUpdate.getCourse().getId();
-        UUID enrollmentId = enrollmentToAddOrUpdate.getUuid();
-        log.info("REST CLIENT :: About to add or update an enrollment with id {} in course {}", enrollmentId, courseId);
-
-        ResponseEntity<Void> addOrUpdateResult = restClient
-                .put()
-                .uri("/courses/{courseId}/enrollments", courseId)
-                .body(enrollmentToAddOrUpdate)
-                .retrieve()
-                .toBodilessEntity();
-
-        log.debug("Status code was returned: {}", addOrUpdateResult.getStatusCode());
-    }
-
     public void deleteEnrollment(String courseId, UUID enrollmentId) {
 
         ResponseEntity<Void> deleteResult = restClient.delete()
