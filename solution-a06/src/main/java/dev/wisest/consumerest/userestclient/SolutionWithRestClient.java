@@ -37,10 +37,9 @@ public class SolutionWithRestClient {
             try {
                 boolean thirdCall = enrollmentRepositoryWithRestClient.addOrUpdateEnrollment(enrollment);
                 log.info("A new enrollment was added on third call: {}", secondCall);
-
             }
             catch (IllegalArgumentException illegalArgumentException) {
-                log.error("IllegalArgumentException was thrown on third call");
+                log.error("IllegalArgumentException was thrown on third call ", illegalArgumentException);
             }
 
         };

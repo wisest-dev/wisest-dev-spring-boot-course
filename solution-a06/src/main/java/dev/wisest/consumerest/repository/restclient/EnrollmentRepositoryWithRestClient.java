@@ -56,12 +56,11 @@ public class EnrollmentRepositoryWithRestClient {
                 .body(enrollmentToAddOrUpdate)
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError,(req, res)->{
-                     throw new IllegalArgumentException("API rejected our payload with error" + res.getBody());
+                     throw new IllegalArgumentException("API rejected our payload with error " + res.getStatusCode());
                  })
                 .toBodilessEntity();
 
         return addOrUpdateResult.getStatusCode().isSameCodeAs(HttpStatus.CREATED);
-
     }
 
 }
