@@ -2,7 +2,7 @@ package dev.wisest.consumerest.model;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -39,7 +39,7 @@ public class Enrollment {
     private Person student;
 
     @JsonProperty("course")
-    private WebCourse webCourse;
+    private course course;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate enrollmentDate;
@@ -51,16 +51,16 @@ public class Enrollment {
         this.uuid = uuid;
     }
 
-    public Enrollment(Person student, WebCourse webCourse, LocalDate enrollmentDate) {
+    public Enrollment(Person student, course course, LocalDate enrollmentDate) {
         this.student = student;
-        this.webCourse = webCourse;
+        this.course = course;
         this.enrollmentDate = enrollmentDate;
     }
 
-    public Enrollment(UUID uuid, Person student, WebCourse webCourse, LocalDate enrollmentDate) {
+    public Enrollment(UUID uuid, Person student, course course, LocalDate enrollmentDate) {
         this.uuid = uuid;
         this.student = student;
-        this.webCourse = webCourse;
+        this.course = course;
         this.enrollmentDate = enrollmentDate;
     }
 
@@ -80,12 +80,12 @@ public class Enrollment {
         this.student = student;
     }
 
-    public WebCourse getCourse() {
-        return webCourse;
+    public course getCourse() {
+        return course;
     }
 
-    public void setCourse(WebCourse webCourse) {
-        this.webCourse = webCourse;
+    public void setCourse(course course) {
+        this.course = course;
     }
 
     public LocalDate getEnrollmentDate() {
@@ -101,7 +101,7 @@ public class Enrollment {
         return "Enrollment{" +
                 "uuid=" + uuid +
                 ", student=" + student +
-                ", course=" + webCourse +
+                ", course=" + course +
                 ", enrollmentDate=" + enrollmentDate +
                 '}';
     }

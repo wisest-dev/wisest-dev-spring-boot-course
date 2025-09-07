@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>a10-webCourse-completion-library</module>
+        <module>a10-course-completion-library</module>
         <module>a10-coding-school</module>
     </modules>
 

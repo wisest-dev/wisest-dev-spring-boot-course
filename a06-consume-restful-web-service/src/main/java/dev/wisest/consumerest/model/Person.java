@@ -2,7 +2,7 @@ package dev.wisest.consumerest.model;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%

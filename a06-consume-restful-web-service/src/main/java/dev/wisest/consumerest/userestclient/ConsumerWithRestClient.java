@@ -2,7 +2,7 @@ package dev.wisest.consumerest.userestclient;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -24,7 +24,7 @@ package dev.wisest.consumerest.userestclient;
  * #L%
  */
 
-import dev.wisest.consumerest.model.WebCourse;
+import dev.wisest.consumerest.model.course;
 import dev.wisest.consumerest.model.Enrollment;
 import dev.wisest.consumerest.model.Person;
 import dev.wisest.consumerest.repository.restclient.CourseRepositoryWithRestClient;
@@ -51,11 +51,11 @@ public class ConsumerWithRestClient {
     @Bean
     public CommandLineRunner run(EnrollmentRepositoryWithRestClient enrollmentRepositoryWithRestClient) {
         return args -> {
-            WebCourse webCourse = courseRepositoryWithRestClient.getCourse("XROAD");
+            course course = courseRepositoryWithRestClient.getCourse("XROAD");
 
             Enrollment enrollmentToAdd = new Enrollment(
                     new Person(1L),
-                    new WebCourse("XROAD"),
+                    new course("XROAD"),
                     LocalDate.of(2025, 1, 13));
 
             Enrollment addedEnrollment = enrollmentRepositoryWithRestClient.addEnrollment(enrollmentToAdd);

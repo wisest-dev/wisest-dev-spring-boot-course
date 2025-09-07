@@ -2,7 +2,7 @@ package dev.wisest.consumerest.model;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class WebCourse {
+public class course {
 
     @JsonProperty("courseId")
     private String id;
@@ -41,12 +41,12 @@ public class WebCourse {
 
 	private Person author;
 
-	protected WebCourse() {}
-	public WebCourse(String id) {
+	protected course() {}
+	public course(String id) {
 		this.id = id;
 	}
 
-	public WebCourse(String id, String title, String courseTopic, Person author) {
+	public course(String id, String title, String courseTopic, Person author) {
 		this.id = id;
 		this.title = title;
 		this.courseTopic = courseTopic;
@@ -56,7 +56,7 @@ public class WebCourse {
 	@Override
 	public String toString() {
 		return String.format(
-				"WebCourse[id=%s, title='%s', courseTopic='%s' author='%s']",
+				"course[id=%s, title='%s', courseTopic='%s' author='%s']",
                 id, title, courseTopic, author);
 	}
 

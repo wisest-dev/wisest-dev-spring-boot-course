@@ -2,7 +2,7 @@ package dev.wisest.consumerest.useresttemplate;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -24,7 +24,7 @@ package dev.wisest.consumerest.useresttemplate;
  * #L%
  */
 
-import dev.wisest.consumerest.model.WebCourse;
+import dev.wisest.consumerest.model.course;
 import dev.wisest.consumerest.model.Enrollment;
 import dev.wisest.consumerest.model.Person;
 import dev.wisest.consumerest.repository.resttemplate.CourseRepositoryWithRestTemplate;
@@ -52,12 +52,12 @@ public class ConsumerWithRestTemplate {
 
             try {
 
-                WebCourse xRoadWebCourse = courseRepositoryWithRestTemplate.getCourse("XROAD");
+                course xRoadcourse = courseRepositoryWithRestTemplate.getCourse("XROAD");
 
-                WebCourse springBootWebCourse = courseRepositoryWithRestTemplate.getCourseWithHeaders("BEGINNER_SPRING_BOOT");
+                course springBootcourse = courseRepositoryWithRestTemplate.getCourseWithHeaders("BEGINNER_SPRING_BOOT");
 
 
-                Enrollment enrollmentToAdd = new Enrollment(new Person(1L), xRoadWebCourse,
+                Enrollment enrollmentToAdd = new Enrollment(new Person(1L), xRoadcourse,
                         LocalDate.of(2025, 1, 13));
 
                 UUID addedEnrollmentUuid = enrollmentRepositoryWithRestTemplate.addEnrollment(enrollmentToAdd);

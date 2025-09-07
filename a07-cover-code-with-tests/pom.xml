@@ -86,7 +86,7 @@
                     <licenseResolver>${project.baseUri}src/license</licenseResolver>
                     <organizationName>Juhan Aasaru and Wisest.dev</organizationName>
                     <inceptionYear>2025</inceptionYear>
-                    <projectName>"Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
+                    <projectName>"Learn Spring Boot by Examining 10+ Practical Applications" course materials
                     </projectName>
                 </configuration>
                 <executions>

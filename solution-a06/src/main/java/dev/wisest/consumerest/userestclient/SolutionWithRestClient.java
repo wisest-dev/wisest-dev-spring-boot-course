@@ -2,7 +2,7 @@ package dev.wisest.consumerest.userestclient;
 
 import dev.wisest.consumerest.model.Enrollment;
 import dev.wisest.consumerest.model.Person;
-import dev.wisest.consumerest.model.WebCourse;
+import dev.wisest.consumerest.model.course;
 import dev.wisest.consumerest.repository.restclient.EnrollmentRepositoryWithRestClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class SolutionWithRestClient {
 
             Enrollment enrollment = new Enrollment(
                     new Person(1L),
-                    new WebCourse("XROAD"),
+                    new course("XROAD"),
                     Util.getRandomDate());
 
 

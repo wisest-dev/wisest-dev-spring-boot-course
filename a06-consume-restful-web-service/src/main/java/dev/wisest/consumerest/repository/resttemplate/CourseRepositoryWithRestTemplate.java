@@ -2,7 +2,7 @@ package dev.wisest.consumerest.repository.resttemplate;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -24,7 +24,7 @@ package dev.wisest.consumerest.repository.resttemplate;
  * #L%
  */
 
-import dev.wisest.consumerest.model.WebCourse;
+import dev.wisest.consumerest.model.course;
 import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,41 +40,41 @@ public class CourseRepositoryWithRestTemplate {
     @Resource
     private RestTemplate restTemplate;
 
-    public WebCourse getCourse(String courseId) {
+    public course getCourse(String courseId) {
 
-        WebCourse webCourse = restTemplate.getForObject(
+        course course = restTemplate.getForObject(
                 "/courses/{courseId}",
-                WebCourse.class,
+                course.class,
                 courseId);
-        if (webCourse == null) {
+        if (course == null) {
             log.warn("REST TEMPLATE :: Course with ID {} not found", courseId);
         }
         else {
             log.info("REST TEMPLATE :: Found course '{}' by {} on topic {}",
-                    webCourse.getTitle(), webCourse.getAuthor().getName(), webCourse.getCourseTopic());
+                    course.getTitle(), course.getAuthor().getName(), course.getCourseTopic());
         }
-        return webCourse;
+        return course;
 
     }
 
-    public WebCourse getCourseWithHeaders(String courseId) {
+    public course getCourseWithHeaders(String courseId) {
 
-        ResponseEntity<WebCourse> responseWithHeaders = restTemplate.getForEntity(
+        ResponseEntity<course> responseWithHeaders = restTemplate.getForEntity(
                 "/courses/{courseId}",
-                WebCourse.class,
+                course.class,
                 courseId);
 
-        WebCourse webCourse = responseWithHeaders.getBody();
+        course course = responseWithHeaders.getBody();
         HttpStatusCode status = responseWithHeaders.getStatusCode();
 
-        if (webCourse == null) {
+        if (course == null) {
             log.warn("REST TEMPLATE :: Course with ID {} not found. Status code was {}", courseId, status);
         }
         else {
-            log.info("REST TEMPLATE :: Course '{}' by {}. Status: {}", webCourse.getTitle(), webCourse.getAuthor(), status);
+            log.info("REST TEMPLATE :: Course '{}' by {}. Status: {}", course.getTitle(), course.getAuthor(), status);
         }
 
-        return webCourse;
+        return course;
     }
 
 }

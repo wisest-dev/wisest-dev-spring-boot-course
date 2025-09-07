@@ -2,7 +2,7 @@ package dev.wisest.consumerest.repository.restclient;
 
 /*-
  * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" webCourse materials
+ * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
  * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
  * %%
@@ -24,7 +24,7 @@ package dev.wisest.consumerest.repository.restclient;
  * #L%
  */
 
-import dev.wisest.consumerest.model.WebCourse;
+import dev.wisest.consumerest.model.course;
 import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,22 +39,22 @@ public class CourseRepositoryWithRestClient {
     @Resource
     private RestClient restClient;
 
-    public WebCourse getCourse(String courseId) {
+    public course getCourse(String courseId) {
 
         RestClient.ResponseSpec xroadCourseResponse = restClient.get()
                 .uri("/courses/{courseId}", courseId)
                 .retrieve();
 
-        WebCourse fetchedWebCourse = xroadCourseResponse.body(WebCourse.class);
+        course fetchedcourse = xroadCourseResponse.body(course.class);
 
-        log.info("REST CLIENT :: XROAD course: {}", fetchedWebCourse);
+        log.info("REST CLIENT :: XROAD course: {}", fetchedcourse);
 
-        ResponseEntity<WebCourse> courseEntity = xroadCourseResponse.toEntity(WebCourse.class);
+        ResponseEntity<course> courseEntity = xroadCourseResponse.toEntity(course.class);
 
         log.info("REST CLIENT :: XROAD course payload was received with content type: {}", courseEntity.getHeaders().getContentType());
         log.info("REST CLIENT :: XROAD course payload: {}", courseEntity.getBody());
 
-        return fetchedWebCourse;
+        return fetchedcourse;
     }
 
 }
