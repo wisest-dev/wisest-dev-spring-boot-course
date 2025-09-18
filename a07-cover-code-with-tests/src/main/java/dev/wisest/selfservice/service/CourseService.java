@@ -36,7 +36,6 @@ import java.util.stream.Stream;
 @Service
 public class CourseService {
 
-
     private final CodingCourseRepository codingCourseRepository;
     private final DevopsCourseRepository devopsCourseRepository;
 

@@ -33,7 +33,9 @@ import java.util.Collection;
 public class DevopsCourseRepository {
 
     public Collection<String> getCourseTitles() {
-        return Arrays.asList("Ansible for Beginners", "Jenkins Bootcamp");
+        return Arrays.asList(
+                "Ansible for Beginners",
+                "Jenkins Bootcamp");
     }
 
 }
