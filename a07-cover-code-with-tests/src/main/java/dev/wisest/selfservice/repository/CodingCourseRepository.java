@@ -33,7 +33,9 @@ import java.util.Collection;
 public class CodingCourseRepository {
 
     public Collection<String> getCourseTitles() {
-        return Arrays.asList("Java for Complete Beginners", "Test-Driven Development with Java");
+        return Arrays.asList(
+                "Java for Complete Beginners",
+                "Test-Driven Development with Java");
     }
 
 }

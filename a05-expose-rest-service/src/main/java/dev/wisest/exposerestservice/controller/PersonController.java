@@ -26,9 +26,8 @@ package dev.wisest.exposerestservice.controller;
 
 import dev.wisest.exposerestservice.model.Person;
 import dev.wisest.exposerestservice.repository.PersonRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 public class PersonController {
 
@@ -38,7 +37,9 @@ public class PersonController {
         this.personRepository = personRepository;
     }
 
-    @GetMapping("/persons")
+    @RequestMapping(path = "/persons", method = RequestMethod.GET)
+
+
     Iterable<Person> getPerson(@RequestParam String name) {
         return personRepository.findByNameIgnoreCase(name);
     }

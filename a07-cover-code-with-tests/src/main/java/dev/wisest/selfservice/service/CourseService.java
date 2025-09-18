@@ -36,11 +36,15 @@ import java.util.stream.Stream;
 @Service
 public class CourseService {
 
-	@Resource
-	private CodingCourseRepository codingCourseRepository;
 
-	@Resource
-	private DevopsCourseRepository devopsCourseRepository;
+    private final CodingCourseRepository codingCourseRepository;
+    private final DevopsCourseRepository devopsCourseRepository;
+
+    public CourseService(CodingCourseRepository codingCourseRepository,
+                         DevopsCourseRepository devopsCourseRepository) {
+        this.codingCourseRepository = codingCourseRepository;
+        this.devopsCourseRepository = devopsCourseRepository;
+    }
 
 
 	public List<String> getCourseTitles() {

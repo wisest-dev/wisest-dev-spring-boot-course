@@ -26,6 +26,7 @@ package dev.wisest.selfservice.controller;
 
 import dev.wisest.selfservice.service.CourseService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -43,7 +44,7 @@ public class CourseController {
 		this.service = service;
 	}
 
-	@RequestMapping("/courses")
+	@GetMapping("/courses")
 	public @ResponseBody Collection<String> getCoursesSorted() {
 		List<String> courseTitles = service.getCourseTitles();
 		Collections.sort(courseTitles);

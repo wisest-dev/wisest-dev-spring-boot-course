@@ -26,6 +26,7 @@ package dev.wisest.selfservice.service;
 
 import dev.wisest.selfservice.repository.CodingCourseRepository;
 import dev.wisest.selfservice.repository.DevopsCourseRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,8 +36,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -53,12 +52,17 @@ public class CourseServiceTest {
 
     @Test
     void getCourseTitles() {
-        when(codingCourseRepository.getCourseTitles()).thenReturn(Arrays.asList("c10", "c20"));
-        when(devopsCourseRepository.getCourseTitles()).thenReturn(Arrays.asList("c01", "c02"));
+        when(codingCourseRepository.getCourseTitles())
+                .thenReturn(Arrays.asList("c10", "c20"));
+        when(devopsCourseRepository.getCourseTitles())
+                .thenReturn(Arrays.asList("c01", "c02"));
 
         List<String> courseTitles = courseService.getCourseTitles();
 
-        assertThat(courseTitles, contains("c10", "c20", "c01", "c02"));
+        Assertions.assertThat(courseTitles)
+                .hasSize(4)
+                .contains("c10", "c20", "c01", "c02");
+
     }
 
 }

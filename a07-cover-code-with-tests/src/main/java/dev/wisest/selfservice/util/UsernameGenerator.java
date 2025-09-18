@@ -37,10 +37,10 @@ public class UsernameGenerator {
 
         // Normalize and remove non-ASCII characters
         String normalizedFirstName = Normalizer.normalize(firstName, Normalizer.Form.NFD)
-                .replaceAll("[^\\p{ASCII}]", "");
+                .replaceAll("[^a-zA-Z]", "");
 
         String normalizedLastName = Normalizer.normalize(lastName, Normalizer.Form.NFD)
-                .replaceAll("[^\\p{ASCII}]", "");
+                .replaceAll("[^a-zA-Z]", "");
 
         // Create username
         String username = (normalizedFirstName.charAt(0) + normalizedLastName).toLowerCase(Locale.ROOT);

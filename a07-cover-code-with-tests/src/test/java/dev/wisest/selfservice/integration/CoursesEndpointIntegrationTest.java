@@ -28,12 +28,11 @@ import jakarta.annotation.Resource;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.web.server.test.LocalServerPort;
 import org.springframework.context.ApplicationContext;
+import org.springframework.web.client.RestClient;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class CoursesEndpointIntegrationTest {
@@ -41,20 +40,27 @@ public class CoursesEndpointIntegrationTest {
 	@LocalServerPort
 	private int port;
 
-	@Autowired
-	private TestRestTemplate restTemplate;
+	private RestClient restClient;
 
 	@Resource
 	ApplicationContext applicationContext;
 
-	@BeforeEach
-	public void logInformation() {
+    @BeforeEach
+	public void setUp() {
+        this.restClient = RestClient.builder()
+                .build();
+
 		System.out.println("There are " + applicationContext.getBeanDefinitionNames().length + " beans in context");
 	}
 
 	@Test
 	public void getCourses_shouldReturnListOfCourses() {
-		String responseString = this.restTemplate.getForObject("http://localhost:" + port + "/courses", String.class);
+
+        String responseString = restClient.get()
+                .uri("http://localhost:" + port + "/courses")
+                .retrieve()
+                .body(String.class);
+
 
 		Assertions.assertThat(responseString)
 				.contains("\"Ansible for Beginners\",\"Java for Complete Beginners\",\"Jenkins Bootcamp\",\"Test-Driven Development with Java\"");

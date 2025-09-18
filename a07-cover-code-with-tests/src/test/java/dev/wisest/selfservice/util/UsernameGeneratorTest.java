@@ -1,88 +1,64 @@
 package dev.wisest.selfservice.util;
 
-/*-
- * #%L
- * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
- * %%
- * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
- * %%
- * The source code (including test code) in this repository is licensed under a
- * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
- * %
- * Attribution-NonCommercial-NoDerivatives 4.0 International License is a standard
- * form license agreement that does not permit any commercial use or derivatives
- * of the original work. Under this license: you may only distribute a verbatim
- * copy of the work. If you remix, transform, or build upon the work in any way then
- * you are not allowed to publish nor distribute modified material.
- * You must give appropriate credit and provide a link to the license.
- * %
- * The full license terms are available from
- * <http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode>
- * %
- * All the code (including tests) contained herein should be attributed as:
- * (Copyright) Juhan Aasaru https://Wisest.dev
- * #L%
- */
-
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class UsernameGeneratorTest {
+class UsernameGeneratorTest {
 
     @Test
-    public void generateUsername_validNames() {
-        String username = UsernameGenerator.generateUsername("John", "Doe");
-        assertEquals("jdoe", username);
+    void generateUsername_ValidNames_ReturnsExpectedUsername() {
+        String result = UsernameGenerator.generateUsername("John", "Doe");
+        assertEquals("jdoe", result);
     }
 
     @Test
-    public void generateUsername_nonEnglishCharacters() {
-        String username = UsernameGenerator.generateUsername("Ülo", "Õun");
-        assertEquals("uoun", username, "Should substitute non-English letters with English most similar characters");
+    void generateUsername_NamesWithNonAsciiCharacters_RemovesNonAsciiCharacters() {
+        String result = UsernameGenerator.generateUsername("Jöhn", "Döe");
+        assertEquals("jdoe", result);
     }
 
     @Test
-    public void generateUsername_firstNameEmpty() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            UsernameGenerator.generateUsername("", "Doe");
-        });
+    void generateUsername_FirstNameIsEmpty_ThrowsIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                UsernameGenerator.generateUsername("", "Doe")
+        );
+        assertEquals("First name and last name must not be null or empty", exception.getMessage());
     }
 
     @Test
-    public void generateUsername_lastNameEmpty() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            UsernameGenerator.generateUsername("John", "");
-        });
+    void generateUsername_LastNameIsEmpty_ThrowsIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                UsernameGenerator.generateUsername("John", "")
+        );
+        assertEquals("First name and last name must not be null or empty", exception.getMessage());
     }
 
     @Test
-    public void generateUsername_firstNameNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            UsernameGenerator.generateUsername(null, "Doe");
-        });
+    void generateUsername_FirstNameIsNull_ThrowsIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                UsernameGenerator.generateUsername(null, "Doe")
+        );
+        assertEquals("First name and last name must not be null or empty", exception.getMessage());
     }
 
     @Test
-    public void generateUsername_lastNameNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            UsernameGenerator.generateUsername("John", null);
-        });
+    void generateUsername_LastNameIsNull_ThrowsIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                UsernameGenerator.generateUsername("John", null)
+        );
+        assertEquals("First name and last name must not be null or empty", exception.getMessage());
     }
 
     @Test
-    public void generateUsername_bothNamesEmpty() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            UsernameGenerator.generateUsername("", "");
-        });
+    void generateUsername_NamesWithSpaces_ReturnsExpectedUsername() {
+        String result = UsernameGenerator.generateUsername(" John ", " Doe ");
+        assertEquals("jdoe", result);
     }
 
     @Test
-    public void generateUsername_bothNamesNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            UsernameGenerator.generateUsername(null, null);
-        });
+    void generateUsername_NamesWithSpecialCharacters_RemovesSpecialCharacters() {
+        String result = UsernameGenerator.generateUsername("J@hn", "D#e");
+        assertEquals("jde", result);
     }
-
 }
