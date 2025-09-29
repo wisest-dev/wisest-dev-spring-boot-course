@@ -28,13 +28,19 @@ import dev.wisest.selfservice.service.CourseService;
 import jakarta.annotation.Resource;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class SmokeTest {
 
-	@Resource
-	private CourseService courseService;
+	private final CourseService courseService;
+
+    @Autowired
+    public SmokeTest(CourseService courseService) {
+        this.courseService = courseService;
+    }
+
 
 	@Test
 	public void contextLoads() {

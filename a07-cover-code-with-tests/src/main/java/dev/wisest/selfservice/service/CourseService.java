@@ -47,7 +47,8 @@ public class CourseService {
 
 
 	public List<String> getCourseTitles() {
-		return new ArrayList<>(Stream.concat(codingCourseRepository.getCourseTitles().stream(),
+		return new ArrayList<>(Stream.concat(
+                codingCourseRepository.getCourseTitles().stream(),
 				devopsCourseRepository.getCourseTitles().stream()).toList());
 	}
 

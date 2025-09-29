@@ -47,8 +47,7 @@ public class CoursesEndpointIntegrationTest {
 
     @BeforeEach
 	public void setUp() {
-        this.restClient = RestClient.builder()
-                .build();
+        this.restClient = RestClient.builder().build();
 
 		System.out.println("There are " + applicationContext.getBeanDefinitionNames().length + " beans in context");
 	}
