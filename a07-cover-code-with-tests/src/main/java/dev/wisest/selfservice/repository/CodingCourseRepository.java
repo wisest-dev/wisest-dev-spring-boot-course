@@ -40,8 +40,13 @@ public class CodingCourseRepository {
     }
 
     public boolean save(CodingCourseEnrollment enrollment) {
-        // Simulate saving the enrollment to a database
-        return true; // Assume the save operation is always successful
+
+        if (enrollment.getCourseId().startsWith("DEVOPS")) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
 }

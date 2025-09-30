@@ -41,10 +41,8 @@ public class EnrollmentController {
 
     private final CodingCourseRepository codingCourseRepository;
 
-
     EnrollmentController(CodingCourseRepository codingCourseRepository) {
         this.codingCourseRepository = codingCourseRepository;
-
     }
 
     @PostMapping("/enrollments")
@@ -64,6 +62,5 @@ public class EnrollmentController {
         }
 
     }
-
 
 }
