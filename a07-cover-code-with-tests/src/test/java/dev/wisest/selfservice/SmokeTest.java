@@ -25,7 +25,6 @@ package dev.wisest.selfservice;
  */
 
 import dev.wisest.selfservice.service.CourseService;
-import jakarta.annotation.Resource;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

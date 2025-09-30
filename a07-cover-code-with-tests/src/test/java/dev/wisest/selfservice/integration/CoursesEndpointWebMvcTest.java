@@ -62,7 +62,8 @@ public class CoursesEndpointWebMvcTest {
 
 	@Test
 	public void greetingShouldReturnMessageFromService() throws Exception {
-		when(service.getCourseTitles()).thenReturn(Arrays.asList("course1", "course2"));
+		when(service.getCourseTitles())
+                .thenReturn(Arrays.asList("course1", "course2"));
 
 		this.mockMvc.perform(get("/courses"))
 				.andDo(print())
