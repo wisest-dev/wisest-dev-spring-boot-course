@@ -32,6 +32,7 @@
       <module name="a05-expose-rest-service (1)" target="17" />
       <module name="a06-consume-restful-web-service (1)" target="17" />
       <module name="a10-webCourse-completion-library" target="17" />
+      <module name="solution-a07" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -59,6 +60,7 @@
       <module name="solution-a04" options="-parameters" />
       <module name="solution-a05" options="-parameters" />
       <module name="solution-a06" options="-parameters" />
+      <module name="solution-a07" options="-parameters" />
     </option>
   </component>
 </project>
