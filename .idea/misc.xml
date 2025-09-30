@@ -23,11 +23,6 @@
         <option value="$PROJECT_DIR$/solution-a07/pom.xml" />
       </list>
     </option>
-    <option name="ignoredFiles">
-      <set>
-        <option value="$PROJECT_DIR$/solution-a07/pom.xml" />
-      </set>
-    </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="graalvm-21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

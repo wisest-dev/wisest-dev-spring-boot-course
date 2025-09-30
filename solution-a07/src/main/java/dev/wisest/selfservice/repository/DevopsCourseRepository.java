@@ -1,4 +1,4 @@
-package dev.wisest.selfservice.model;
+package dev.wisest.selfservice.repository;
 
 /*-
  * #%L
@@ -24,37 +24,18 @@ package dev.wisest.selfservice.model;
  * #L%
  */
 
-import java.time.LocalDate;
+import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
+import java.util.Collection;
 
-public class CodingCourseEnrollment {
+@Repository
+public class DevopsCourseRepository {
 
-
-    private String courseId;
-
-    private String studentName;
-
-    private LocalDate enrollmentDate;
-
-    public CodingCourseEnrollment() {
-    }
-
-    public CodingCourseEnrollment(String courseId, String studentName, LocalDate enrollmentDate) {
-        this.courseId = courseId;
-        this.studentName = studentName;
-        this.enrollmentDate = enrollmentDate;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public LocalDate getEnrollmentDate() {
-        return enrollmentDate;
+    public Collection<String> getCourseTitles() {
+        return Arrays.asList(
+                "Ansible for Beginners",
+                "Jenkins Bootcamp");
     }
 
 }

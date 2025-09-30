@@ -1,4 +1,4 @@
-package dev.wisest.selfservice.model;
+package dev.wisest.selfservice.repository;
 
 /*-
  * #%L
@@ -24,37 +24,29 @@ package dev.wisest.selfservice.model;
  * #L%
  */
 
-import java.time.LocalDate;
+import dev.wisest.selfservice.model.CodingCourseEnrollment;
+import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
+import java.util.Collection;
 
-public class CodingCourseEnrollment {
+@Repository
+public class CodingCourseRepository {
 
-
-    private String courseId;
-
-    private String studentName;
-
-    private LocalDate enrollmentDate;
-
-    public CodingCourseEnrollment() {
+    public Collection<String> getCourseTitles() {
+        return Arrays.asList(
+                "Java for Complete Beginners",
+                "Test-Driven Development with Java");
     }
 
-    public CodingCourseEnrollment(String courseId, String studentName, LocalDate enrollmentDate) {
-        this.courseId = courseId;
-        this.studentName = studentName;
-        this.enrollmentDate = enrollmentDate;
-    }
+    public boolean save(CodingCourseEnrollment enrollment) {
 
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public LocalDate getEnrollmentDate() {
-        return enrollmentDate;
+        if (enrollment.getCourseId().startsWith("DEVOPS")) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
 }

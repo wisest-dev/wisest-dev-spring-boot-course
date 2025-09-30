@@ -1,4 +1,4 @@
-package dev.wisest.selfservice.model;
+package dev.wisest.selfservice.controller;
 
 /*-
  * #%L
@@ -24,37 +24,31 @@ package dev.wisest.selfservice.model;
  * #L%
  */
 
-import java.time.LocalDate;
+import dev.wisest.selfservice.service.CourseService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 
-public class CodingCourseEnrollment {
+@Controller
+public class CourseController {
 
+	private final CourseService service;
 
-    private String courseId;
+	public CourseController(CourseService service) {
+		this.service = service;
+	}
 
-    private String studentName;
-
-    private LocalDate enrollmentDate;
-
-    public CodingCourseEnrollment() {
-    }
-
-    public CodingCourseEnrollment(String courseId, String studentName, LocalDate enrollmentDate) {
-        this.courseId = courseId;
-        this.studentName = studentName;
-        this.enrollmentDate = enrollmentDate;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public LocalDate getEnrollmentDate() {
-        return enrollmentDate;
-    }
+	@GetMapping("/courses")
+	public @ResponseBody Collection<String> getCoursesSorted() {
+		List<String> courseTitles = service.getCourseTitles();
+		Collections.sort(courseTitles);
+		return courseTitles;
+	}
 
 }

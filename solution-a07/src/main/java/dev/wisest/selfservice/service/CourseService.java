@@ -1,4 +1,4 @@
-package dev.wisest.selfservice.model;
+package dev.wisest.selfservice.service;
 
 /*-
  * #%L
@@ -24,37 +24,32 @@ package dev.wisest.selfservice.model;
  * #L%
  */
 
-import java.time.LocalDate;
+import dev.wisest.selfservice.repository.CodingCourseRepository;
+import dev.wisest.selfservice.repository.DevopsCourseRepository;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
-public class CodingCourseEnrollment {
+@Service
+public class CourseService {
 
+    private final CodingCourseRepository codingCourseRepository;
+    private final DevopsCourseRepository devopsCourseRepository;
 
-    private String courseId;
-
-    private String studentName;
-
-    private LocalDate enrollmentDate;
-
-    public CodingCourseEnrollment() {
+    public CourseService(CodingCourseRepository codingCourseRepository,
+                         DevopsCourseRepository devopsCourseRepository) {
+        this.codingCourseRepository = codingCourseRepository;
+        this.devopsCourseRepository = devopsCourseRepository;
     }
 
-    public CodingCourseEnrollment(String courseId, String studentName, LocalDate enrollmentDate) {
-        this.courseId = courseId;
-        this.studentName = studentName;
-        this.enrollmentDate = enrollmentDate;
-    }
 
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public LocalDate getEnrollmentDate() {
-        return enrollmentDate;
-    }
+	public List<String> getCourseTitles() {
+		return new ArrayList<>(Stream.concat(
+                codingCourseRepository.getCourseTitles().stream(),
+				devopsCourseRepository.getCourseTitles().stream()).toList());
+	}
 
 }

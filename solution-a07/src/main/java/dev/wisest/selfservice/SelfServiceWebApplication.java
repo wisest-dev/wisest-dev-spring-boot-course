@@ -1,4 +1,4 @@
-package dev.wisest.selfservice.model;
+package dev.wisest.selfservice;
 
 /*-
  * #%L
@@ -24,37 +24,14 @@ package dev.wisest.selfservice.model;
  * #L%
  */
 
-import java.time.LocalDate;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
+public class SelfServiceWebApplication {
 
-public class CodingCourseEnrollment {
-
-
-    private String courseId;
-
-    private String studentName;
-
-    private LocalDate enrollmentDate;
-
-    public CodingCourseEnrollment() {
-    }
-
-    public CodingCourseEnrollment(String courseId, String studentName, LocalDate enrollmentDate) {
-        this.courseId = courseId;
-        this.studentName = studentName;
-        this.enrollmentDate = enrollmentDate;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public LocalDate getEnrollmentDate() {
-        return enrollmentDate;
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(SelfServiceWebApplication.class, args);
+	}
 
 }

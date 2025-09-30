@@ -30,7 +30,6 @@ import jakarta.annotation.Nonnull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,23 +37,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 
 @RestController
-public class CodingCourseEnrollmentController {
+public class EnrollmentController {
 
     private final CodingCourseRepository codingCourseRepository;
 
 
-    CodingCourseEnrollmentController(CodingCourseRepository codingCourseRepository) {
+    EnrollmentController(CodingCourseRepository codingCourseRepository) {
         this.codingCourseRepository = codingCourseRepository;
 
     }
 
-    @PostMapping("/courses/coding/{courseId}/enrollments")
-    ResponseEntity<Void> createEnrollment(@PathVariable String courseId,
-                                          @Nonnull @RequestBody CodingCourseEnrollment newEnrollment) {
+    @PostMapping("/enrollments")
+    ResponseEntity<Void> createEnrollment(@Nonnull @RequestBody CodingCourseEnrollment newEnrollment) {
 
-        Assert.isTrue(newEnrollment.getEnrollmentDate().isBefore(LocalDate.now().plusDays(1)),
-                "Enrollment date must be on today or in the past");
-
+        if (newEnrollment.getEnrollmentDate().isAfter(LocalDate.now())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
 
         boolean isSaved = codingCourseRepository.save(newEnrollment);
 

@@ -1,4 +1,4 @@
-package dev.wisest.selfservice.model;
+package dev.wisest.selfservice.util;
 
 /*-
  * #%L
@@ -24,37 +24,28 @@ package dev.wisest.selfservice.model;
  * #L%
  */
 
-import java.time.LocalDate;
+import java.text.Normalizer;
+import java.util.Locale;
 
+public class UsernameGenerator {
 
-public class CodingCourseEnrollment {
+    public static String generateUsername(String firstName, String lastName) {
 
+        if (firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty()) {
+            throw new IllegalArgumentException("First name and last name must not be null or empty");
+        }
 
-    private String courseId;
+        // Normalize and remove non-ASCII characters
+        String normalizedFirstName = Normalizer.normalize(firstName, Normalizer.Form.NFD)
+                .replaceAll("[^a-zA-Z]", "");
 
-    private String studentName;
+        String normalizedLastName = Normalizer.normalize(lastName, Normalizer.Form.NFD)
+                .replaceAll("[^a-zA-Z]", "");
 
-    private LocalDate enrollmentDate;
+        // Create username
+        String username = (normalizedFirstName.charAt(0) + normalizedLastName).toLowerCase(Locale.ROOT);
 
-    public CodingCourseEnrollment() {
-    }
-
-    public CodingCourseEnrollment(String courseId, String studentName, LocalDate enrollmentDate) {
-        this.courseId = courseId;
-        this.studentName = studentName;
-        this.enrollmentDate = enrollmentDate;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public LocalDate getEnrollmentDate() {
-        return enrollmentDate;
+        return username;
     }
 
 }

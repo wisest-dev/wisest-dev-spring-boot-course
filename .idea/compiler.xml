@@ -10,6 +10,7 @@
         <module name="a01-get-started-with-spring-boot" />
         <module name="a04-connect-to-database-using-jpa" />
         <module name="a08-secure-the-application" />
+        <module name="solution-a07" />
         <module name="a07-cover-code-with-tests" />
         <module name="solution-a04" />
         <module name="a09-package-the-application" />
@@ -31,8 +32,8 @@
       <module name="a04-connect-to-database-using-jpa (1)" target="17" />
       <module name="a05-expose-rest-service (1)" target="17" />
       <module name="a06-consume-restful-web-service (1)" target="17" />
+      <module name="a07-cover-code-with-tests (1)" target="17" />
       <module name="a10-webCourse-completion-library" target="17" />
-      <module name="solution-a07" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -49,6 +50,7 @@
       <module name="a06-consume-restful-web-service" options="-parameters" />
       <module name="a06-consume-restful-web-service (1)" options="-parameters" />
       <module name="a07-cover-code-with-tests" options="-parameters" />
+      <module name="a07-cover-code-with-tests (1)" options="-parameters" />
       <module name="a08-secure-the-application" options="-parameters" />
       <module name="a09-package-the-application" options="-parameters" />
       <module name="a10-coding-school" options="-parameters" />
