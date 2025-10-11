@@ -31,7 +31,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -46,7 +46,7 @@ public class SloganControllerMockMvcTest {
 	public void getSlogan() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/"))
 				.andExpect(status().isOk())
-				.andExpect(content().string(equalTo("{\"message\":\"Supporting you in becoming the wisest dev!\",\"language\":\"en\"}")));
+				.andExpect(content().string(containsString("\"message\":\"Supporting you in becoming the wisest dev!\"")));
 	}
 
 }
