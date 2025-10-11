@@ -26,7 +26,7 @@ package dev.wisest.consumerest.bonuslecture;
 
 import dev.wisest.consumerest.model.Enrollment;
 import dev.wisest.consumerest.model.Person;
-import dev.wisest.consumerest.model.course;
+import dev.wisest.consumerest.model.WebCourse;
 import dev.wisest.consumerest.repository.restclient.CourseRepositoryWithRestClient;
 import dev.wisest.consumerest.repository.restclient.EnrollmentRepositoryWithRestClient;
 import jakarta.annotation.Resource;
@@ -51,11 +51,11 @@ public class BonusLectureConsumer {
     public CommandLineRunner run(EnrollmentRepositoryWithRestClient enrollmentRepositoryWithRestClient) {
         return args -> {
 
-            course course = courseRepositoryWithRestClient.getCourse("XROAD");
+            WebCourse course = courseRepositoryWithRestClient.getCourse("XROAD");
 
             Enrollment enrollmentToAdd = new Enrollment(
                     new Person(1L),
-                    new course("XROAD"),
+                    new WebCourse("XROAD"),
                     LocalDate.of(2024, 2, 29));
 
             Enrollment addedEnrollment = enrollmentRepositoryWithRestClient

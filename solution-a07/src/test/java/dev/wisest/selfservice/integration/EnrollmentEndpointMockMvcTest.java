@@ -67,11 +67,6 @@ public class EnrollmentEndpointMockMvcTest {
     public void postEnrollment_enrollmentCourseIsDevops_internalServerErrorStatusIsReturned() throws Exception {
 
 
-        CodingCourseEnrollment enrollmentInPast = new CodingCourseEnrollment(
-                "JAVA",
-                "John Smith",
-                LocalDate.of(2000, 1, 1));
-
 
         mockMvc.perform(post("/enrollments")
                         .contentType("application/json")

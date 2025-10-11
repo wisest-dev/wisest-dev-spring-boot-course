@@ -39,7 +39,7 @@ public class Enrollment {
     private Person student;
 
     @JsonProperty("course")
-    private course course;
+    private WebCourse course;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate enrollmentDate;
@@ -51,13 +51,13 @@ public class Enrollment {
         this.uuid = uuid;
     }
 
-    public Enrollment(Person student, course course, LocalDate enrollmentDate) {
+    public Enrollment(Person student, WebCourse course, LocalDate enrollmentDate) {
         this.student = student;
         this.course = course;
         this.enrollmentDate = enrollmentDate;
     }
 
-    public Enrollment(UUID uuid, Person student, course course, LocalDate enrollmentDate) {
+    public Enrollment(UUID uuid, Person student, WebCourse course, LocalDate enrollmentDate) {
         this.uuid = uuid;
         this.student = student;
         this.course = course;
@@ -80,11 +80,11 @@ public class Enrollment {
         this.student = student;
     }
 
-    public course getCourse() {
+    public WebCourse getCourse() {
         return course;
     }
 
-    public void setCourse(course course) {
+    public void setCourse(WebCourse course) {
         this.course = course;
     }
 

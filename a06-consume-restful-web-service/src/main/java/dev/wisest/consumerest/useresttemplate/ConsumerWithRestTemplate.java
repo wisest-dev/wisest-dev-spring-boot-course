@@ -24,7 +24,7 @@ package dev.wisest.consumerest.useresttemplate;
  * #L%
  */
 
-import dev.wisest.consumerest.model.course;
+import dev.wisest.consumerest.model.WebCourse;
 import dev.wisest.consumerest.model.Enrollment;
 import dev.wisest.consumerest.model.Person;
 import dev.wisest.consumerest.repository.resttemplate.CourseRepositoryWithRestTemplate;
@@ -52,9 +52,9 @@ public class ConsumerWithRestTemplate {
 
             try {
 
-                course xRoadcourse = courseRepositoryWithRestTemplate.getCourse("XROAD");
+                WebCourse xRoadcourse = courseRepositoryWithRestTemplate.getCourse("XROAD");
 
-                course springBootcourse = courseRepositoryWithRestTemplate.getCourseWithHeaders("BEGINNER_SPRING_BOOT");
+                WebCourse springBootcourse = courseRepositoryWithRestTemplate.getCourseWithHeaders("BEGINNER_SPRING_BOOT");
 
 
                 Enrollment enrollmentToAdd = new Enrollment(new Person(1L), xRoadcourse,

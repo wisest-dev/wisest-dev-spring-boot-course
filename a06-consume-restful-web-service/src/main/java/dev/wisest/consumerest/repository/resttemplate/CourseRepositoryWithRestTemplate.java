@@ -24,7 +24,7 @@ package dev.wisest.consumerest.repository.resttemplate;
  * #L%
  */
 
-import dev.wisest.consumerest.model.course;
+import dev.wisest.consumerest.model.WebCourse;
 import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,11 +40,11 @@ public class CourseRepositoryWithRestTemplate {
     @Resource
     private RestTemplate restTemplate;
 
-    public course getCourse(String courseId) {
+    public WebCourse getCourse(String courseId) {
 
-        course course = restTemplate.getForObject(
+        WebCourse course = restTemplate.getForObject(
                 "/courses/{courseId}",
-                course.class,
+                WebCourse.class,
                 courseId);
         if (course == null) {
             log.warn("REST TEMPLATE :: Course with ID {} not found", courseId);
@@ -57,14 +57,14 @@ public class CourseRepositoryWithRestTemplate {
 
     }
 
-    public course getCourseWithHeaders(String courseId) {
+    public WebCourse getCourseWithHeaders(String courseId) {
 
-        ResponseEntity<course> responseWithHeaders = restTemplate.getForEntity(
+        ResponseEntity<WebCourse> responseWithHeaders = restTemplate.getForEntity(
                 "/courses/{courseId}",
-                course.class,
+                WebCourse.class,
                 courseId);
 
-        course course = responseWithHeaders.getBody();
+        WebCourse course = responseWithHeaders.getBody();
         HttpStatusCode status = responseWithHeaders.getStatusCode();
 
         if (course == null) {

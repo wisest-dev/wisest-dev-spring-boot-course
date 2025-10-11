@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class course {
+public class WebCourse {
 
     @JsonProperty("courseId")
     private String id;
@@ -41,12 +41,12 @@ public class course {
 
 	private Person author;
 
-	protected course() {}
-	public course(String id) {
+	protected WebCourse() {}
+	public WebCourse(String id) {
 		this.id = id;
 	}
 
-	public course(String id, String title, String courseTopic, Person author) {
+	public WebCourse(String id, String title, String courseTopic, Person author) {
 		this.id = id;
 		this.title = title;
 		this.courseTopic = courseTopic;

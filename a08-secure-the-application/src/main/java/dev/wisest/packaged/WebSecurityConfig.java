@@ -37,7 +37,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -51,8 +50,8 @@ public class WebSecurityConfig {
                 .securityMatcher("/api/**")
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/courses").hasRole("USER")
-                        .requestMatchers(antMatcher("/api/courses/{courseId}")).hasRole("USER")
-                        .requestMatchers(antMatcher("/api/courses/{courseId}/enrollments**")).hasRole("ADMIN")
+                        .requestMatchers("/api/courses/{courseId}").hasRole("USER")
+                        .requestMatchers("/api/courses/{courseId}/enrollments**").hasRole("ADMIN")
                 )
                 .httpBasic(Customizer.withDefaults());
         return http.build();

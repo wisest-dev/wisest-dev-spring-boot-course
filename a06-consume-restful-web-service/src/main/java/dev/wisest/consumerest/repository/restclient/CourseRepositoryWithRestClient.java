@@ -24,7 +24,7 @@ package dev.wisest.consumerest.repository.restclient;
  * #L%
  */
 
-import dev.wisest.consumerest.model.course;
+import dev.wisest.consumerest.model.WebCourse;
 import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,17 +39,17 @@ public class CourseRepositoryWithRestClient {
     @Resource
     private RestClient restClient;
 
-    public course getCourse(String courseId) {
+    public WebCourse getCourse(String courseId) {
 
         RestClient.ResponseSpec xroadCourseResponse = restClient.get()
                 .uri("/courses/{courseId}", courseId)
                 .retrieve();
 
-        course fetchedcourse = xroadCourseResponse.body(course.class);
+        WebCourse fetchedcourse = xroadCourseResponse.body(WebCourse.class);
 
         log.info("REST CLIENT :: XROAD course: {}", fetchedcourse);
 
-        ResponseEntity<course> courseEntity = xroadCourseResponse.toEntity(course.class);
+        ResponseEntity<WebCourse> courseEntity = xroadCourseResponse.toEntity(WebCourse.class);
 
         log.info("REST CLIENT :: XROAD course payload was received with content type: {}", courseEntity.getHeaders().getContentType());
         log.info("REST CLIENT :: XROAD course payload: {}", courseEntity.getBody());
