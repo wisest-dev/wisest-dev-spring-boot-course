@@ -31,12 +31,6 @@
 			<scope>test</scope>
 		</dependency>
 
-        <!-- we need TestRestTemplate for testing our REST service -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-restclient</artifactId>
-            <scope>test</scope>
-        </dependency>
 	</dependencies>
 
 	<build>

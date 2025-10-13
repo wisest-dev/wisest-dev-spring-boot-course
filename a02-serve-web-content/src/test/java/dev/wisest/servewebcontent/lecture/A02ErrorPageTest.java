@@ -25,15 +25,14 @@ package dev.wisest.servewebcontent.lecture;
  */
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.web.server.test.client.TestRestTemplate;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.RestClient;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,24 +42,29 @@ public class A02ErrorPageTest {
     @Value(value = "${local.server.port}")
     private int port;
 
-    @Autowired
-    private TestRestTemplate restTemplate;
-
     @Test
     public void whenGettingNonExistingPageCustomErrorMessageIsReturned() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.TEXT_HTML));
-
         String randomString = LocalDateTime.now().toString();
 
-        ResponseEntity<String> responseEntity = this.restTemplate.exchange("http://localhost:" + port + "/page" + randomString,
-                HttpMethod.GET, new HttpEntity<Void>(headers), String.class);
+        RestClient customClient = RestClient.builder()
+                .build();
 
-        assertThat(responseEntity.getBody())
+        String body = customClient
+                .get()
+                .uri("http://localhost:" + port + "/page{randomString}", randomString)
+                .accept(MediaType.TEXT_HTML)
+                .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
+
+                })
+                .body(String.class);
+
+
+        assertThat(body)
                 .as("'Whitelabel Error Page' is not returned by Spring Boot when requesting non-existing page")
                 .doesNotContain("Whitelabel Error Page");
 
-        assertThat(responseEntity.getBody())
+        assertThat(body)
                 .as("Custom error page with with message 'An error has occurred' is returned for not found page")
                 .contains("An error has occurred");
     }
