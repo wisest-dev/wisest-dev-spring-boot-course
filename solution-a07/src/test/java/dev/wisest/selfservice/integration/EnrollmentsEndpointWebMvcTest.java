@@ -29,10 +29,10 @@ import dev.wisest.selfservice.model.CodingCourseEnrollment;
 import dev.wisest.selfservice.repository.CodingCourseRepository;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.time.LocalDate;
 
@@ -52,7 +52,7 @@ public class EnrollmentsEndpointWebMvcTest {
     private CodingCourseRepository codingCourseRepository;
 
     @Resource
-    private ObjectMapper objectMapper;
+    private JsonMapper jsonMapper;
 
 
     @Test
@@ -68,7 +68,7 @@ public class EnrollmentsEndpointWebMvcTest {
 
         mockMvc.perform(post("/enrollments")
                         .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(enrollmentInPast)))
+                        .content(jsonMapper.writeValueAsString(enrollmentInPast)))
                 .andExpect(status().isCreated())
                 .andDo(print());
     }
@@ -86,7 +86,7 @@ public class EnrollmentsEndpointWebMvcTest {
 
         mockMvc.perform(post("/enrollments")
                         .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(enrollmentInPast)))
+                        .content(jsonMapper.writeValueAsString(enrollmentInPast)))
                 .andExpect(status().isInternalServerError())
                 .andDo(print());
     }
@@ -103,7 +103,7 @@ public class EnrollmentsEndpointWebMvcTest {
 
         mockMvc.perform(post("/enrollments")
                         .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(enrollmentInFuture)))
+                        .content(jsonMapper.writeValueAsString(enrollmentInFuture)))
                 .andExpect(status().isBadRequest())
                 .andDo(print());
 
