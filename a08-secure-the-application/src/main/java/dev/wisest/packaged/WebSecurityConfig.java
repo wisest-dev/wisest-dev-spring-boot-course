@@ -26,14 +26,13 @@ package dev.wisest.packaged;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -42,60 +41,67 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-
-	@Bean
-    @Order(1)
-    public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
-		http
-                .securityMatcher("/api/**")
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/courses").hasRole("USER")
-                        .requestMatchers("/api/courses/{courseId}").hasRole("USER")
-                        .requestMatchers("/api/courses/{courseId}/enrollments**").hasRole("ADMIN")
+    /*
+        @Bean
+        @Order(1)
+        public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
+            http
+                    .securityMatcher("/api/**")
+                    .authorizeHttpRequests(authorize -> authorize
+                            .requestMatchers("/api/courses").hasRole("USER")
+                            .requestMatchers("/api/courses/{courseId}").hasRole("USER")
+                            .requestMatchers("/api/courses/{courseId}/enrollments**").hasRole("ADMIN")
+                    )
+                    .httpBasic(Customizer.withDefaults());
+            return http.build();
+        }
+    */
+    @Bean
+	public SecurityFilterChain springSecurityFilterChain2(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/", "/intro").permitAll()
+                        .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults());
+                .formLogin((form) -> form
+                        .loginPage("/login")
+                        .permitAll()
+                )
+                .logout((logout) -> logout.permitAll());
+
         return http.build();
     }
 
     @Bean
-    public SecurityFilterChain formLoginFilterChain(HttpSecurity http) throws Exception {
-        http
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-			.authorizeHttpRequests((requests) -> requests
-                    .requestMatchers("/", "/introduction").permitAll()
-				.anyRequest().authenticated()
-			)
-			.formLogin((form) -> form
-				.loginPage("/login")
-				.permitAll()
-			)
-                .logout(LogoutConfigurer::permitAll);
+    @Bean
+    public UserDetailsService userDetailsService() {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-		return http.build();
-	}
-
-	@Bean
-	public UserDetailsService userDetailsService() {
-		UserDetails user =
-			 User.withDefaultPasswordEncoder()
-                     .username("regular")
-				.password("password")
-				.roles("USER")
-				.build();
+        UserDetails user =
+                User.builder()
+                        .username("user") // TODO regular
+                        .password(encoder.encode("password"))
+                        .roles("USER")
+                        .build();
         UserDetails userAdmin =
-                User.withDefaultPasswordEncoder()
+                User.builder()
                         .username("regular-and-admin")
-                        .password("password")
+                        .password(encoder.encode("password"))
                         .roles("USER", "ADMIN")
                         .build();
 
         UserDetails adminOnly =
-                User.withDefaultPasswordEncoder()
+                User.builder()
                         .username("admin-only")
-                        .password("password")
+                        .password(encoder.encode("password"))
                         .roles("ADMIN")
                         .build();
 
         return new InMemoryUserDetailsManager(user, userAdmin, adminOnly);
-	}
+    }
+
 }
