@@ -1,4 +1,4 @@
-package dev.wisest.packaged;
+package dev.wisest.secured;
 
 /*-
  * #%L
@@ -24,19 +24,13 @@ package dev.wisest.packaged;
  * #L%
  */
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.FormLoginRequestBuilder;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
@@ -46,59 +40,46 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SecuredWebApplicationTests {
+public class SecuredApplicationTests {
 
-	@Autowired
-	private MockMvc mockMvc;
+	private final MockMvc mockMvc;
 
+    public SecuredApplicationTests(@Autowired MockMvc mockMvc) {
+        this.mockMvc = mockMvc;
+    }
 
-    @Disabled
     @Test
-    public void loginWithValidUser_userIsAuthenticated() throws Exception {
-
-        RequestPostProcessor requestPostProcessor = SecurityMockMvcRequestPostProcessors.testSecurityContext();
-
+	public void loginWithValidUserThenAuthenticated() throws Exception {
         FormLoginRequestBuilder login = formLogin()
                 .user("regular")
-			.password("password");
+			.password("123");
 
-		mockMvc
-                .perform(login)
+		mockMvc.perform(login)
                 .andExpect(authenticated().withUsername("regular"));
 	}
 
     @Test
-    public void loginWithNotExistingUser_userIsUnauthenticated() throws Exception {
+	public void loginWithInvalidUserThenUnauthenticated() throws Exception {
 		FormLoginRequestBuilder login = formLogin()
-                .user("notExistingUser")
-                .password("somePassword");
+			.user("invalid_user")
+			.password("invalid_password");
 
 		mockMvc.perform(login)
 			.andExpect(unauthenticated());
 	}
 
     @Test
-    public void accessUnsecuredResource_okStatusCodeReturned() throws Exception {
-		mockMvc.perform(get("/").with(SecurityMockMvcRequestPostProcessors.anonymous()))
+	public void accessUnsecuredResourceThenOk() throws Exception {
+		mockMvc.perform(get("/"))
 			.andExpect(status().isOk());
 	}
 
     @Test
-    public void accessSecuredResourceAsUnauthenticated_redirectsToLogin() throws Exception {
+	public void accessSecuredResourceUnauthenticatedThenRedirectsToLogin() throws Exception {
         mockMvc.perform(get("/members"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(redirectedUrl("/login"));
 	}
 
-    @Disabled
-    @Test
-	@WithMockUser
-    public void accessSecuredResourceAsAuthenticated_okStatusCodeReturned() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/members"))
-				.andExpect(status().isOk())
-				.andReturn();
-
-        assertThat(mvcResult.getResponse().getContentAsString()).contains("Hi user!");
-	}
 
 }

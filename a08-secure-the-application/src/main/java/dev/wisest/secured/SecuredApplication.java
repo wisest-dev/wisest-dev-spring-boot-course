@@ -1,4 +1,4 @@
-package dev.wisest.packaged;
+package dev.wisest.secured;
 
 /*-
  * #%L
@@ -28,10 +28,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SecuredWebApplication {
+public class SecuredApplication {
 
-	public static void main(String[] args) throws Throwable {
-		SpringApplication.run(SecuredWebApplication.class, args);
+	public static void main(String[] args) {
+		SpringApplication.run(SecuredApplication.class, args);
 	}
 
 }

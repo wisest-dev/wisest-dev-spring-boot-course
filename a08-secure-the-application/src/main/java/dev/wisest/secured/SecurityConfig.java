@@ -1,4 +1,4 @@
-package dev.wisest.packaged;
+package dev.wisest.secured;
 
 /*-
  * #%L
@@ -24,10 +24,14 @@ package dev.wisest.packaged;
  * #L%
  */
 
+import dev.wisest.secured.api.ApiAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -39,43 +43,52 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class SecurityConfig {
 
-    /*
-        @Bean
-        @Order(1)
-        public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
-            http
-                    .securityMatcher("/api/**")
-                    .authorizeHttpRequests(authorize -> authorize
-                            .requestMatchers("/api/courses").hasRole("USER")
-                            .requestMatchers("/api/courses/{courseId}").hasRole("USER")
-                            .requestMatchers("/api/courses/{courseId}/enrollments**").hasRole("ADMIN")
-                    )
-                    .httpBasic(Customizer.withDefaults());
-            return http.build();
-        }
-    */
+
     @Bean
-	public SecurityFilterChain springSecurityFilterChain2(HttpSecurity http) throws Exception {
+    @Order(1)
+    public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
         http
+                .securityMatcher("/api/**")
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(new ApiAuthenticationEntryPoint())
+                )
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/courses").hasRole("USER")
+                        .requestMatchers("/api/courses/{courseId}").hasRole("USER")
+                        .requestMatchers("/api/courses/{courseId}/enrollments**").hasRole("ADMIN")
+                )
+                .httpBasic(Customizer.withDefaults());
+        return http.build();
+    }
+
+
+    @Bean
+    @Order(2)
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher("/**")
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/intro").permitAll()
+                        .requestMatchers("/", "/start", "/error").permitAll()
+                        .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
                 )
-                .logout((logout) -> logout.permitAll());
+                .logout(LogoutConfigurer::permitAll);
 
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -83,25 +96,19 @@ public class WebSecurityConfig {
 
         UserDetails user =
                 User.builder()
-                        .username("user") // TODO regular
-                        .password(encoder.encode("password"))
+                        .username("regular")
+                        .password(encoder.encode("123"))
                         .roles("USER")
                         .build();
-        UserDetails userAdmin =
+
+        UserDetails admin =
                 User.builder()
-                        .username("regular-and-admin")
-                        .password(encoder.encode("password"))
+                        .username("administrator")
+                        .password(encoder.encode("456"))
                         .roles("USER", "ADMIN")
                         .build();
 
-        UserDetails adminOnly =
-                User.builder()
-                        .username("admin-only")
-                        .password(encoder.encode("password"))
-                        .roles("ADMIN")
-                        .build();
-
-        return new InMemoryUserDetailsManager(user, userAdmin, adminOnly);
+        return new InMemoryUserDetailsManager(user, admin);
     }
 
 }

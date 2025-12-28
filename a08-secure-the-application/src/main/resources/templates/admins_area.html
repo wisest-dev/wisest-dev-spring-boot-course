@@ -25,16 +25,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6" lang="en">
 <head>
-    <title>Welcome to the members' area!</title>
+    <title>Welcome to the administration area!</title>
 </head>
 <body>
-<h1 th:inline="text">Hi <span th:remove="tag" sec:authentication="name">logged-in username</span>!</h1>
+<h1>Welcome to the administration area, <span th:remove="tag" sec:authentication="name">logged-in username</span>!</h1>
 
-<div sec:authorize="hasRole('USER')">You have a user role.</div>
-<div sec:authorize="hasRole('ADMIN')">You have an admin role, you can go to <a href="/admin">admin area</a></div>
+<p>You can go to <a th:href="@{/members}">members' area</a>.</p>
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Log Out"/>
 </form>
+
 </body>
 </html>

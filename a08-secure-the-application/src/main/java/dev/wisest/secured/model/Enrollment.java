@@ -1,4 +1,4 @@
-package dev.wisest.packaged.model;
+package dev.wisest.secured.model;
 
 /*-
  * #%L

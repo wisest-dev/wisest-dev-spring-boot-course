@@ -1,4 +1,4 @@
-package dev.wisest.packaged.api;
+package dev.wisest.secured.model;
 
 /*-
  * #%L
@@ -24,34 +24,45 @@ package dev.wisest.packaged.api;
  * #L%
  */
 
-import dev.wisest.packaged.model.Course;
-import dev.wisest.packaged.model.Person;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
+public class Course {
 
-import static java.util.Arrays.asList;
+    private String courseId;
 
-@RestController
-public class CourseApiController {
+    private String title;
 
-    Logger logger = LoggerFactory.getLogger(CourseApiController.class);
+    private Person author;
 
-    @GetMapping("/api/courses")
-    Collection<Course> getCourses() {
-
-        logger.info("getCourses");
-
-        Person austin = new Person("Austin Powers");
-        austin.setPersonId(3L);
-
-        Course prometheus = new Course("PROMETHEUS_MONITORING", "Monitoring with Prometheus", austin);
-        Course docker = new Course("DOKER_BEGINNER", "Docker for Beginners", austin);
-
-        return asList(prometheus, docker);
+    protected Course() {
     }
+
+    public Course(String courseId) {
+        this.courseId = courseId;
+	}
+
+    public Course(String courseId, String title, Person author) {
+        this.courseId = courseId;
+        this.title = title;
+        this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Course[id=%s, title='%s', author='%s']",
+                courseId, title, author);
+	}
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public String getTitle() {
+        return title;
+	}
+
+    public Person getAuthor() {
+        return author;
+	}
 
 }

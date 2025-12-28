@@ -23,22 +23,25 @@
   #L%
 /*/-->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
-    <head>
-        <title>Enter the member's area</title>
-    </head>
-    <body>
-        <div th:if="${param.error}">
-            Invalid username and password.
-        </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
-        </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> User Name : <input type="text" name="username" autocomplete="off" readonly
-                                            onfocus="this.removeAttribute('readonly');"/> </label></div>
-            <div><label> Password: <input type="password" name="password" autocomplete="off" readonly
-                                          onfocus="this.removeAttribute('readonly');"/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
-        </form>
-    </body>
+<head>
+    <title>Enter the member's area</title>
+</head>
+<body>
+
+<h1>You need to authenticate first</h1>
+
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+<form th:action="@{/login}" method="post">
+    <div><label> User Name : <input type="text" name="username" autocomplete="off" readonly
+                                    onfocus="this.removeAttribute('readonly');"/> </label></div>
+    <div><label> Password: <input type="password" name="password" autocomplete="off" readonly
+                                  onfocus="this.removeAttribute('readonly');"/> </label></div>
+    <div><input type="submit" value="Sign In"/></div>
+</form>
+</body>
 </html>

@@ -1,4 +1,4 @@
-package dev.wisest.packaged;
+package dev.wisest.secured.model;
 
 /*-
  * #%L
@@ -24,19 +24,45 @@ package dev.wisest.packaged;
  * #L%
  */
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
-public class MvcConfig implements WebMvcConfigurer {
+public class Person {
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/intro").setViewName("introduction");
-        registry.addViewController("/").setViewName("introduction");
-        registry.addViewController("/members").setViewName("members_area");
-		registry.addViewController("/login").setViewName("login");
-	}
+    private Long personId;
+
+    private String name;
+
+    protected Person() {
+    }
+
+    public Person(Long personId) {
+        this.personId = personId;
+    }
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Person[id=%d, name='%s']",
+                personId, name);
+    }
+
+    public Long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Long id) {
+        this.personId = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

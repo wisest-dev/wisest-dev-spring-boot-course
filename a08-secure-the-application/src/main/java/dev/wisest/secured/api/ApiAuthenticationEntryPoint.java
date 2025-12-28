@@ -1,4 +1,4 @@
-package dev.wisest.packaged.model;
+package dev.wisest.secured.api;
 
 /*-
  * #%L
@@ -24,45 +24,21 @@ package dev.wisest.packaged.model;
  * #L%
  */
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
-public class Course {
+import java.io.IOException;
 
-    private String courseId;
-
-    private String title;
-
-    private Person author;
-
-    protected Course() {
-    }
-
-    public Course(String courseId) {
-        this.courseId = courseId;
-	}
-
-    public Course(String courseId, String title, Person author) {
-        this.courseId = courseId;
-        this.title = title;
-        this.author = author;
-    }
+public class ApiAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
-    public String toString() {
-        return String.format(
-                "Course[id=%s, title='%s', author='%s']",
-                courseId, title, author);
-	}
-
-    public String getCourseId() {
-        return courseId;
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
+        response.setHeader("WWW-Authenticate", "Basic realm=\"Members area\"");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+        response.getWriter().write("{\"error\": \"HTTP basic authentication failed\", \"code\": 401}");
     }
-
-    public String getTitle() {
-        return title;
-	}
-
-    public Person getAuthor() {
-        return author;
-	}
 
 }

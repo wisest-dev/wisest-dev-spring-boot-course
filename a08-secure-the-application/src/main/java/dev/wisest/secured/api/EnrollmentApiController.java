@@ -1,4 +1,4 @@
-package dev.wisest.packaged.api;
+package dev.wisest.secured.api;
 
 /*-
  * #%L
@@ -24,9 +24,9 @@ package dev.wisest.packaged.api;
  * #L%
  */
 
-import dev.wisest.packaged.model.Course;
-import dev.wisest.packaged.model.Enrollment;
-import dev.wisest.packaged.model.Person;
+import dev.wisest.secured.model.Course;
+import dev.wisest.secured.model.Enrollment;
+import dev.wisest.secured.model.Person;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
