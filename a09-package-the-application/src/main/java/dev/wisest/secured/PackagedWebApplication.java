@@ -1,11 +1,11 @@
-package dev.wisest.packaged.repository;
+package dev.wisest.secured;
 
 /*-
  * #%L
  * Code accompanying course "Learn Spring Boot by Examining 10+ Practical
  *                         Applications"
  * %%
- * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
+ * Copyright (C) 2025 - 2026 Juhan Aasaru and Wisest.dev
  * %%
  * The source code (including test code) in this repository is licensed under a
  * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
@@ -25,13 +25,14 @@ package dev.wisest.packaged.repository;
  * #L%
  */
 
-import dev.wisest.packaged.model.User;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@Repository
-public interface UserRepository extends CrudRepository<User, Long> {
-    User findByUsername(String username);
+@SpringBootApplication
+public class PackagedWebApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(PackagedWebApplication.class, args);
+	}
+
 }
-
-

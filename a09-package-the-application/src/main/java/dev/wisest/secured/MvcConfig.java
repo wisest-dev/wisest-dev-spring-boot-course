@@ -1,11 +1,11 @@
-package dev.wisest.packaged.model;
+package dev.wisest.secured;
 
 /*-
  * #%L
  * Code accompanying course "Learn Spring Boot by Examining 10+ Practical
  *                         Applications"
  * %%
- * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
+ * Copyright (C) 2025 - 2026 Juhan Aasaru and Wisest.dev
  * %%
  * The source code (including test code) in this repository is licensed under a
  * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
@@ -25,33 +25,19 @@ package dev.wisest.packaged.model;
  * #L%
  */
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Entity
-@Table(name = "roles")
-public class Role {
-    @Id
-    private Long id;
+@Configuration
+public class MvcConfig implements WebMvcConfigurer {
 
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/intro").setViewName("introduction");
+        registry.addViewController("/").setViewName("introduction");
+        registry.addViewController("/members").setViewName("members_area");
+        registry.addViewController("/login").setViewName("login");
     }
 
 }
-

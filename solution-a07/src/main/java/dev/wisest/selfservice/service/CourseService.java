@@ -4,7 +4,7 @@ package dev.wisest.selfservice.service;
  * #%L
  * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
- * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
+ * Copyright (C) 2025 - 2026 Juhan Aasaru and Wisest.dev
  * %%
  * The source code (including test code) in this repository is licensed under a
  * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
@@ -26,7 +26,6 @@ package dev.wisest.selfservice.service;
 
 import dev.wisest.selfservice.repository.CodingCourseRepository;
 import dev.wisest.selfservice.repository.DevopsCourseRepository;
-import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

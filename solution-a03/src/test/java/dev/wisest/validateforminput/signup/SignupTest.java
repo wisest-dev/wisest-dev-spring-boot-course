@@ -4,7 +4,7 @@ package dev.wisest.validateforminput.signup;
  * #%L
  * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
- * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
+ * Copyright (C) 2025 - 2026 Juhan Aasaru and Wisest.dev
  * %%
  * The source code (including test code) in this repository is licensed under a
  * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
@@ -27,8 +27,8 @@ package dev.wisest.validateforminput.signup;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;

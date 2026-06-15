@@ -4,7 +4,7 @@ package dev.wisest.selfservice.controller;
  * #%L
  * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
- * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
+ * Copyright (C) 2025 - 2026 Juhan Aasaru and Wisest.dev
  * %%
  * The source code (including test code) in this repository is licensed under a
  * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
@@ -29,7 +29,6 @@ import dev.wisest.selfservice.repository.CodingCourseRepository;
 import jakarta.annotation.Nonnull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

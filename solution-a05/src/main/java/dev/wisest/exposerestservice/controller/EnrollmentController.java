@@ -4,7 +4,7 @@ package dev.wisest.exposerestservice.controller;
  * #%L
  * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
- * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
+ * Copyright (C) 2025 - 2026 Juhan Aasaru and Wisest.dev
  * %%
  * The source code (including test code) in this repository is licensed under a
  * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
@@ -24,7 +24,6 @@ package dev.wisest.exposerestservice.controller;
  * #L%
  */
 
-import dev.wisest.exposerestservice.bonuslecture.DelayResponsesInterceptor;
 import dev.wisest.exposerestservice.model.Course;
 import dev.wisest.exposerestservice.model.Enrollment;
 import dev.wisest.exposerestservice.repository.EnrollmentRepository;

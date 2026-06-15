@@ -1,11 +1,11 @@
-package dev.wisest.packaged;
+package dev.wisest.secured.model;
 
 /*-
  * #%L
  * Code accompanying course "Learn Spring Boot by Examining 10+ Practical
  *                         Applications"
  * %%
- * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
+ * Copyright (C) 2025 - 2026 Juhan Aasaru and Wisest.dev
  * %%
  * The source code (including test code) in this repository is licensed under a
  * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
@@ -25,14 +25,33 @@ package dev.wisest.packaged;
  * #L%
  */
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@SpringBootApplication
-public class PackagedWebApplication {
+@Entity
+@Table(name = "roles")
+public class Role {
+    @Id
+    private Long id;
 
-	public static void main(String[] args) {
-		SpringApplication.run(PackagedWebApplication.class, args);
-	}
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
 }
+

@@ -1,11 +1,11 @@
-package dev.wisest.packaged;
+package dev.wisest.secured.service;
 
 /*-
  * #%L
  * Code accompanying course "Learn Spring Boot by Examining 10+ Practical
  *                         Applications"
  * %%
- * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
+ * Copyright (C) 2025 - 2026 Juhan Aasaru and Wisest.dev
  * %%
  * The source code (including test code) in this repository is licensed under a
  * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
@@ -25,19 +25,30 @@ package dev.wisest.packaged;
  * #L%
  */
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import dev.wisest.secured.model.User;
+import dev.wisest.secured.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-@Configuration
-public class MvcConfig implements WebMvcConfigurer {
+@Service
+public class CourseSystemUserDetailsService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+
+    public CourseSystemUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/intro").setViewName("introduction");
-        registry.addViewController("/").setViewName("introduction");
-        registry.addViewController("/members").setViewName("members_area");
-        registry.addViewController("/login").setViewName("login");
+    public UserDetails loadUserByUsername(String username) {
+
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        return user;
     }
 
 }

@@ -4,7 +4,7 @@ package dev.wisest.exposerestservice.controller;
  * #%L
  * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
- * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
+ * Copyright (C) 2025 - 2026 Juhan Aasaru and Wisest.dev
  * %%
  * The source code (including test code) in this repository is licensed under a
  * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
@@ -25,21 +25,19 @@ package dev.wisest.exposerestservice.controller;
  */
 
 import dev.wisest.exposerestservice.controller.exception.EnrollmentUpdateNotAllowedException;
-import dev.wisest.exposerestservice.model.Course;
 import dev.wisest.exposerestservice.model.Enrollment;
 import dev.wisest.exposerestservice.repository.EnrollmentRepository;
-import dev.wisest.exposerestservice.repository.exception.EnrollmentNotFoundException;
 import jakarta.validation.Valid;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 public class UpdateEnrollmentController {

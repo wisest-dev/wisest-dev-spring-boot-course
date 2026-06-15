@@ -4,7 +4,7 @@ package dev.wisest.consumerest.useresttemplate;
  * #%L
  * "Learn Spring Boot by Examining 10+ Practical Applications" course materials
  * %%
- * Copyright (C) 2025 Juhan Aasaru and Wisest.dev
+ * Copyright (C) 2025 - 2026 Juhan Aasaru and Wisest.dev
  * %%
  * The source code (including test code) in this repository is licensed under a
  * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
@@ -24,9 +24,9 @@ package dev.wisest.consumerest.useresttemplate;
  * #L%
  */
 
-import dev.wisest.consumerest.model.WebCourse;
 import dev.wisest.consumerest.model.Enrollment;
 import dev.wisest.consumerest.model.Person;
+import dev.wisest.consumerest.model.WebCourse;
 import dev.wisest.consumerest.repository.resttemplate.CourseRepositoryWithRestTemplate;
 import dev.wisest.consumerest.repository.resttemplate.EnrollmentRepositoryWithRestTemplate;
 import org.slf4j.Logger;

@@ -34,6 +34,7 @@
       <module name="a06-consume-restful-web-service (1)" target="17" />
       <module name="a07-cover-code-with-tests (1)" target="17" />
       <module name="a10-webCourse-completion-library" target="17" />
+      <module name="securing-web-complete" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -56,6 +57,7 @@
       <module name="a10-coding-school" options="-parameters" />
       <module name="a10-course-completion-library" options="-parameters" />
       <module name="a10-webCourse-completion-library" options="-parameters" />
+      <module name="securing-web-complete" options="-parameters" />
       <module name="solution-a01" options="-parameters" />
       <module name="solution-a02" options="-parameters" />
       <module name="solution-a03" options="-parameters" />
