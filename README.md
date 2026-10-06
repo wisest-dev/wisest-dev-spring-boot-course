@@ -4,6 +4,8 @@
 These applications accompany video course [Learn Spring Boot 4 by Examining Practical Applications](https://www.udemy.com/course/learn-spring-boot-by-examining-practical-applications/?referralCode=C871DD0489D8D7B171B5).
 
 You can take my course from [Udemy](https://www.udemy.com/course/learn-spring-boot-by-examining-practical-applications/?referralCode=C871DD0489D8D7B171B5).
+Videos of first sections are available in [YouTube](https://www.youtube.com/@wisest-dev) for free.
+
 In the course, I will walk you through the applications of this repository.
 Each application introduces new Spring Boot concepts so that you will get
 a complete overview of the capabilities of this library and how to utilize it the most efficient way.
@@ -29,7 +31,11 @@ Here are the list of applications and what aspects of Spring Boot they cover.
         <li>Run the application directly from the IDE</li>
         <li>Spring Beans compared to regular POJOs</li>
         <li>Dependency Injection in Spring</li>
-    </ul></td>
+    </ul>
+
+    [Video available free on Youtube](https://www.youtube.com/watch?v=lFQ0oLYUW-U)
+
+    </td>
 </tr><tr>
     <td>
 
