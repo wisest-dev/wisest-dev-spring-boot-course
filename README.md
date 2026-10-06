@@ -35,7 +35,7 @@ Here are the list of applications and what aspects of Spring Boot they cover.
 
 [Video available free on YouTube](https://www.youtube.com/watch?v=lFQ0oLYUW-U)
 
-    </td>
+</td>
 </tr><tr>
     <td>
 
