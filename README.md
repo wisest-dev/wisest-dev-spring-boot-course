@@ -33,7 +33,7 @@ Here are the list of applications and what aspects of Spring Boot they cover.
         <li>Dependency Injection in Spring</li>
     </ul>
 
-    <a href="https://www.youtube.com/watch?v=lFQ0oLYUW-U">Video available free on Youtube</a>
+[Video available free on YouTube](https://www.youtube.com/watch?v=lFQ0oLYUW-U)
 
     </td>
 </tr><tr>
